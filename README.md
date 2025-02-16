@@ -1,6 +1,6 @@
 # Nexys A7 Lab
 
-This repository is my personal laboratory dedicated to the FPGA development board [Nexys A7](https://digilent.com/reference/programmable-logic/nexys-a7/start) by Digilent. 
+This repository is my personal digital design laboratory dedicated to the FPGA development board [Nexys A7](https://digilent.com/reference/programmable-logic/nexys-a7/start) by Digilent. 
 
 My goal with this repository is to gradually design and verify RTL code required for controlling Nexys A7 board peripherals. 
 
