@@ -1,0 +1,12 @@
+.venv
+.vscode
+
+simulation/
+
+# Vivado ignores (keep just .xpr and the .srcs folder)
+vivado/**/*.cache/
+vivado/**/*.hw/
+vivado/**/*.ip_user_files/
+vivado/**/*.runs/
+vivado/**/*.sim/
+*.dcp
