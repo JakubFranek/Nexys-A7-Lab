@@ -1,23 +1,23 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use ieee.math_real.LOG2;
+use ieee.math_real.log2;
 use ieee.math_real.ceil;
 
 entity clock_enable_generator is
     generic (
-        COUNTER_MAX : natural := 100000000 -- number of clock cycles to generate a clock enable signal
+        COUNTER_MAX : natural := 100000000 --! number of clock cycles required to generate a single clock enable pulse
     );
     port (
-        i_clk     : in std_logic;        -- input clock
-        o_clk_ena : out std_logic := '0' -- clock enable signal, active high for one clock cycle
+        i_clk     : in std_logic;        --! input clock
+        o_clk_ena : out std_logic := '0' --! clock enable signal, active high for one input clock cycle
     );
 end clock_enable_generator;
 
-architecture Behavioral of clock_enable_generator is
+architecture rtl of clock_enable_generator is
 
-    constant COUNTER_WIDTH : natural                              := natural(ceil(LOG2(real(COUNTER_MAX))));
-    signal reg_counter     : unsigned(COUNTER_WIDTH - 1 downto 0) := (others => '0');
+    constant COUNTER_WIDTH : natural                              := natural(ceil(log2(real(COUNTER_MAX)))); --! counter width required to fit COUNTER_MAX
+    signal reg_counter     : unsigned(COUNTER_WIDTH - 1 downto 0) := (others => '0');                        --! counter register
 
 begin
 
@@ -35,6 +35,6 @@ begin
                 o_clk_ena   <= '0';
             end if;
         end if;
-    end process;
+    end process clk_ena_proc;
 
-end Behavioral;
+end rtl;

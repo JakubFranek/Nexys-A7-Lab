@@ -38,16 +38,15 @@ README.md      # Project overview (you are reading this now!)
 
 ## VHDL Naming Convention
 
-| Type        | Naming Convention | Example |
-|------------|------------------|---------|
-| **Ports** | `i_` (input), `o_` (output), `io_` (inout) | `i_clk`, `o_result`, `io_bus` |
-| **Signals** | `reg_` (register),  `w_` (wire) | `w_data_ready`, `reg_data` |
-| **Variables** | `var_` prefix | `var_counter`, `var_temp` |
-| **Constants** | Uppercase with underscores | `CLK_PERIOD_NS`, `MAX_COUNT` |
-| **Generics** | Uppercase with underscores | `DATA_WIDTH`, `CLOCK_FREQ` |
-| **Processes** | Suffix `_proc` | `clk_div_proc` |
-| **FSM States** | Enum type with `S_` prefix | `S_IDLE`, `S_READ`, `S_DONE` |
-| **Components** | PascalCase | `MyComponent` |
-| **Instances** | Lowercase with `_inst` suffix | `u_uart`, `u_fifo_inst` |
-| **Inverted logic** | `_n` suffix (negative) | `rst_n`, `ena_n` |
+| Type                       | Naming Convention                          | Example                       |
+| -------------------------- | ------------------------------------------ | ----------------------------- |
+| **Ports**                  | `i_` (input), `o_` (output), `io_` (inout) | `i_clk`, `o_result`, `io_bus` |
+| **Signals**                | `reg_` (register),  `w_` (wire)            | `w_data_ready`, `reg_data`    |
+| **Variables**              | `var_` prefix                              | `var_counter`, `var_temp`     |
+| **Constants and generics** | Uppercase with underscores                 | `DATA_WIDTH`, `CLOCK_FREQ`    |
+| **Processes**              | Suffix `_proc`                             | `clk_div_proc`                |
+| **FSM States**             | Enum type with `S_` prefix                 | `S_IDLE`, `S_READ`, `S_DONE`  |
+| **Entities / Components**  | snake_case                                 | `my_component`                |
+| **Instances**              | `u_` prefix                                | `u_uart`, `u_fifo_inst`       |
+| **Inverted logic**         | `_n` suffix (negative)                     | `rst_n`, `ena_n`              |
 
