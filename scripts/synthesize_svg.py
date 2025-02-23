@@ -4,7 +4,10 @@ import argparse
 import subprocess
 from pathlib import Path
 
+# The following paths need to be set manually
 YOSYS_PATH = "D:/Programy/MSYS2/mingw64/bin/yosys.exe"
+NETLISTSVG_PATH = "C:/Users/jfran/AppData/Roaming/npm/netlistsvg.cmd"
+NETLISTSVG_SKIN_PATH = "scripts/netlistsvg_skins/default.svg"
 
 
 def run_command(command, cwd=None):
@@ -72,11 +75,11 @@ if __name__ == "__main__":
     )
     run_command(
         [
-            "C:/Users/jfran/AppData/Roaming/npm/netlistsvg.cmd",
+            NETLISTSVG_PATH,
             f"{json_file_name}",
             "-o",
             f"{svg_file_path.as_posix()}",
-            "--skin scripts/netlistsvg_skins/default.svg",
+            f"--skin {NETLISTSVG_SKIN_PATH}",
         ]
     )
     add_white_background(svg_file_path)
