@@ -1,0 +1,27 @@
+rule:
+    global:
+        indent_size: 4
+    signal_007:             # This rule requires the user to remove the default assignments.
+        disable: true
+    generic_007:            # This rule checks the generic names have proper case.
+        case: "upper"
+    port_012:               # This rule checks for default assignments on port declarations.
+        disable: true
+    instantiation_034:      # This rule checks for component versus direct instantiations.
+        method: "entity"
+    process_036:            # This rule checks for valid prefixes on process labels. The default prefix is proc_.
+        disable: false
+    generate_017:           # This rule checks for valid prefixes on generate statement labels. The default prefix is gen_.
+        disable: false
+    port_011:               # This rule checks for valid prefixes on port identifiers. The default port prefixes are: i_, o_, io_.
+        disable: false
+    variable_012:           # This rule checks for valid prefixes on variable identifiers. The default variable prefix is v_.
+        disable: false
+    instantiation_601:      # This rule checks for valid prefixes on instantiation labels. The default prefix is inst_.
+        disable: false
+    constant_004:           # This rule checks the constant identifier has proper case.
+        disable: false
+        case: "upper"
+    generic_map_002:        # This rule checks generic names have proper case.
+        disable: false
+        case: "upper"
