@@ -33,3 +33,7 @@ This is a list of known limitations of the tools that are used in this repositor
 
 ## Surfer
 - setting default time unit in config file is not yet supported, [see this issue](https://gitlab.com/surfer-project/surfer/-/issues/373)
+
+## AMD Vivado
+- PSL statements are not supported in plain VHDL-2008 (only workaround seems to be `-- psl` comment blocks)
+- case of port names in XDC constaints must exactly match the case in VHDL code

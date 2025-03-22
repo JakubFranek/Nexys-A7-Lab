@@ -16,7 +16,7 @@ This is a task list for this repository. This list is not exhaustive.
 
 ## To do
 
-- [ ] Test synthesization of PSL code in Vivado (in case of problems, wrap formal verification code in some kind of SIMULATION/FORMAL generic boolean)
+- [ ] Make XDC constraint port names lowercase
 - [ ] Test `synthesize_svg` script on a block containing sub-blocks
 - [ ] Test FSM diagram generation in TerosHDL
 - [ ] Test multiple WaveDrom diagrams per VHDL file
@@ -35,3 +35,4 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Include SVG white background addition within cleanup_wavedrom_svgs.py script
 - [x] Add tool links to README
 - [x] Make SymbiYosys Python script accept arguments (testbench path)
+- [x] Test synthesization of PSL code in Vivado (in case of problems, wrap formal verification code in some kind of SIMULATION/FORMAL generic boolean)
