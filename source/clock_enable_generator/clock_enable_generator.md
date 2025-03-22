@@ -51,7 +51,7 @@ The initial value of output `o_clk_ena` is '1'.
 | Label | Condition | Report | Severity |
 |-------|-----------|--------|----------|
 | counter_max_min_value | PERIOD > 1 | `PERIOD` must be larger than 1 | error |
-| o_clk_ena_counter_max | always {q_counter = PERIOD - 1} &#124;=> {o_clk_ena = '1'} | `o_clk_ena` not activated in the next clock cycle after `q_counter` reaches `PERIOD` - 1 | error |
+| o_clk_ena_period | always {q_counter = PERIOD - 1} &#124;=> {o_clk_ena = '1'} | `o_clk_ena` not activated in the next clock cycle after `q_counter` reaches `PERIOD` - 1 | error |
 | q_counter_reset | always {q_counter = PERIOD - 1} &#124;=> {q_counter = 0} | `q_counter` not reset in the next clock cycle after reaching `PERIOD` - 1 | error |
 | o_clk_ena_one_cycle | always {o_clk_ena = '1'} &#124;=> {o_clk_ena = '0'} | `o_clk_ena` pulse is longer than one clock cycle | error |
 | q_counter_increment | always (q_counter < PERIOD - 1) &#124;=> (q_counter = q_counter_prev + 1) | `q_counter` not incremented in the next clock cycle after `q_counter` < `PERIOD` - 1 | error |

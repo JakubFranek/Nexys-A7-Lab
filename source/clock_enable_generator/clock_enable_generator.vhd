@@ -71,7 +71,7 @@ begin
                 report "`PERIOD` must be larger than 1"
                 severity error;
 
-            -- psl o_clk_ena_counter_max :
+            -- psl o_clk_ena_period :
             -- assert (always {q_counter = PERIOD - 1} |=> {o_clk_ena = '1'})
             -- report "`o_clk_ena` not activated in the next clock cycle after `q_counter` reaches `PERIOD` - 1"
             -- severity error;

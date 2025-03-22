@@ -42,7 +42,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     vhd_file_path: Path = args.directory / (args.directory.name + ".vhd")
-    svg_file_path: Path = args.directory / (args.directory.name + ".svg")
+    svg_file_path: Path = args.directory / (args.directory.name + "_netlist.svg")
     json_file_name = f"{svg_file_path.parent}/{vhd_file_path.stem}.json"
     run_command(
         [
