@@ -26,8 +26,8 @@ lib.add_source_files("source/**/*.vhd")
 lib.add_source_files("testbench/**/*.vhd")
 
 # The following code is used to automatically configure the testbenches
-# based on the presence of a vunit_config.py file within the testbench
-# directory (which is named the same as the testbench itself, without the _tb).
+# based on the presence of a `vunit_config.py` file within the testbench
+# directory (which is named the same as the testbench itself, without the `_tb`).
 for testbench in lib.get_test_benches():
     config_path = Path(f"testbench/{testbench.name.strip('_tb')}/vunit_config.py")
     if config_path.exists():

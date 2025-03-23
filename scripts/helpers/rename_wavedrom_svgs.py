@@ -2,7 +2,7 @@ import re
 from pathlib import Path
 
 
-from add_svg_white_background import add_white_background
+from helpers.add_svg_white_background import add_white_background
 
 # This script will iterate through all folders within source directory. It will read all Markdown files within each folder
 # and find the names of all used wavedrom SVGs. It will remove the unused wavedrom SVGs, and it will renamed the used

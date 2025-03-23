@@ -61,12 +61,10 @@ def document_asserts(directory: Path):
     asserts = extract_asserts(cleaned_code)
     markdown_table = generate_markdown_table(asserts)
 
-    if not (directory / directory.name).with_suffix(".md").exists():
-        print(
-            f"WARNING: {directory}/{directory.name}.md does not exist. Creating it..."
-        )
+    if not (directory / "README.md").exists():
+        print(f"WARNING: {directory}/README.md does not exist. Creating it...")
 
-    with open(f"{directory}/{directory.name}.md", "r+", encoding="utf-8") as md_file:
+    with open(f"{directory}/README.md", "r+", encoding="utf-8") as md_file:
         lines = md_file.readlines()
 
         # Remove all lines beginning with the line which contains "## Assertions"
@@ -90,9 +88,7 @@ def document_asserts(directory: Path):
         # Truncate file in case new content is shorter than original
         md_file.truncate()
 
-    print(
-        f"Assert table saved to {str(directory).replace('\\', '/')}/{directory.name}.md"
-    )
+    print(f"Assert table saved to {str(directory).replace('\\', '/')}/README.md")
 
 
 def document_asserts_all(directory: Path):

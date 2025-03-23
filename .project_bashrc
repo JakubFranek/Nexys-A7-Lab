@@ -1,4 +1,4 @@
 alias vunit="python scripts/run_vunit.py"
 alias formal="python scripts/run_sby.py"
-alias fix_docs="python scripts/cleanup_source_documents.py"
+alias docfix="python scripts/doc_fix.py"
 alias synth_svg="python scripts/synthesize_svg.py"

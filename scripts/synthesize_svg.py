@@ -3,7 +3,7 @@ import argparse
 import subprocess
 from pathlib import Path
 
-from add_svg_white_background import add_white_background
+from helpers.add_svg_white_background import add_white_background
 
 # The following paths need to be set manually
 YOSYS_PATH = "D:/Programy/MSYS2/mingw64/bin/yosys.exe"
