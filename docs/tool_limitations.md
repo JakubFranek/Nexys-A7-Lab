@@ -15,7 +15,7 @@ This is a list of known limitations of the tools that are used in this repositor
 ## VHDL-LS
 - PSL statements are not supported
   - this therefore necessitates putting PSL statements into `-- psl` comment blocks (which in turn requires running GHDL with `-fpsl` option)
-  - [option to skip regions of code will be added in release 0.84](https://github.com/VHDL-LS/rust_hdl/pull/372), once that releases, the PSL statements can be written directly into the HDL code
+  - [option to skip regions of code will be added in release 0.84](https://github.com/VHDL-LS/rust_hdl/pull/372), once that releases, the PSL statements can be written directly into the HDL code (but this is blocked by [Vivado not supporting PSL](#amd-vivado))
   - since it takes time before VHDL-LS releases are merged into Teros HDL, it might be possible to install VDHL-LS VS Code extension separately and disable VHDL-LS in Teros HDL
 
 ## VSG

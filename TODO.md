@@ -10,19 +10,16 @@ This is a task list for this repository. This list is not exhaustive.
 
 ## Work in progress
 
-
-
-## To do
-
-- [ ] Add README to scripts directory
-- [ ] Rename entity Markdown docs to README in order to show them on GitHub
-
-- [ ] Create parametrized synchronizer
-- [ ] Create parametrized debouncer
-  
 - [ ] Explore VUnit further
   - [x] Vary generics
   - [ ] Include multiple test cases in a testbench
+
+## To do
+
+- [ ] Document `assume` statements
+
+- [ ] Create parametrized synchronizer
+- [ ] Create parametrized debouncer
 
 - [ ] Test `synthesize_svg` script on a block containing sub-blocks
 - [ ] Test FSM diagram generation in TerosHDL
@@ -46,3 +43,5 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Make SymbiYosys Python script accept arguments (testbench path)
 - [x] Test synthesization of PSL code in Vivado (in case of problems, wrap formal verification code in some kind of SIMULATION/FORMAL generic boolean)
 - [x] Make XDC constraint port names lowercase
+- [x] Rename entity Markdown docs to README in order to show them on GitHub
+- [x] Add README to scripts directory
