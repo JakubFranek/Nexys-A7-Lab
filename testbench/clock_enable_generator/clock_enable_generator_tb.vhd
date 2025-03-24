@@ -35,8 +35,6 @@ begin
 
         test_runner_setup(runner, RUNNER_CFG);
 
-        report "Hello world!";
-
         for i in 0 to 2 * PERIOD loop
 
             wait until rising_edge(clk);
