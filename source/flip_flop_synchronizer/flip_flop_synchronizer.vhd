@@ -21,8 +21,7 @@ library ieee;
 
 entity flip_flop_synchronizer is
     generic (
-        STAGES     : natural := 2;   --! number of chained flip-flops
-        SIMULATION : boolean := true --! generate logic needed for assert evaluation
+        STAGES : natural := 2 --! number of chained flip-flops
     );
     port (
         i_clk   : in    std_logic; --! input clock

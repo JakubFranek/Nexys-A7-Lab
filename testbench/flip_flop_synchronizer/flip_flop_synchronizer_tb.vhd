@@ -53,6 +53,20 @@ begin
         wait until rising_edge(clk);
         check(sync = '1');
 
+        wait for (CLK_PERIOD * 0.5);
+
+        async <= '0';
+
+        for i in 1 to STAGES loop
+
+            wait until rising_edge(clk);
+            check(sync = '1');
+
+        end loop;
+
+        wait until rising_edge(clk);
+        check(sync = '0');
+
         test_runner_cleanup(runner); -- Simulation ends here
 
     end process proc_test_runner;
