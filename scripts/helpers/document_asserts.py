@@ -62,7 +62,8 @@ def document_asserts(directory: Path):
     markdown_table = generate_markdown_table(asserts)
 
     if not (directory / "README.md").exists():
-        print(f"WARNING: {directory}/README.md does not exist. Creating it...")
+        print(f"WARNING: {directory}/README.md does not exist. Skipping it...")
+        return
 
     with open(f"{directory}/README.md", "r+", encoding="utf-8") as md_file:
         lines = md_file.readlines()

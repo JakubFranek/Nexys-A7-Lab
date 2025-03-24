@@ -13,6 +13,8 @@ def rename_entity_documents(directory: Path) -> None:
             entity_markdown_file = entity_folder / f"{entity_folder.name}.md"
 
             if entity_vhdl_file.exists() and entity_markdown_file.exists():
+                if (entity_folder / "README.md").exists():
+                    (entity_folder / "README.md").unlink()
                 entity_markdown_file.rename(entity_folder / "README.md")
 
 
