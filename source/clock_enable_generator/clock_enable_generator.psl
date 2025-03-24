@@ -1,0 +1,9 @@
+vunit clock_enable_generator_psl (clock_enable_generator(rtl)) {
+
+    default clock is rising_edge(i_clk);
+
+    q_counter_increment :
+    assert (always (q_counter < PERIOD - 1) -> next (q_counter = prev(q_counter) + 1))
+    report "`q_counter` is not incrementing";
+
+}

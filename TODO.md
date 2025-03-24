@@ -16,6 +16,8 @@ This is a task list for this repository. This list is not exhaustive.
 
 ## To do
 
+- [ ] Create an issue about new GHDL release causing exec errors with VUnit
+
 - [ ] Document `assume` statements
 
 - [ ] Create parametrized synchronizer
@@ -45,3 +47,4 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Make XDC constraint port names lowercase
 - [x] Rename entity Markdown docs to README in order to show them on GitHub
 - [x] Add README to scripts directory
+- [x] Test PSL vunits with SymbiYosys and GHDL synthesis-only PSL functions
