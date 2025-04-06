@@ -35,9 +35,11 @@ for testbench in lib.get_test_benches():
         config_module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(config_module)
         config_module.configure(testbench)
-        print(f"Configured {testbench.name} with {config_path}")
+        print(f"Configured '{testbench.name}' with '{config_path}'")
     else:
-        print(f"Could not find vunit_config.py for {testbench.name}, skipping...")
+        print(
+            f"Could not find vunit_config.py for testbench '{testbench.name}', skipping..."
+        )
 
 vunit.set_compile_option(
     "ghdl.a_flags", ["-fpsl", "--std=08"]

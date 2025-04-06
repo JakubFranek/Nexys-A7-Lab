@@ -42,13 +42,14 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     vhd_file_path: Path = args.directory / (args.directory.name + ".vhd")
+    vhd_file_paths: list[Path] = list(Path("source").glob("**/*.vhd"))
     svg_file_path: Path = args.directory / (args.directory.name + "_netlist.svg")
     json_file_name = f"{svg_file_path.parent}/{vhd_file_path.stem}.json"
     run_command(
         [
             YOSYS_PATH,
             "-p",
-            f"ghdl --std=08 --no-formal --work=work {vhd_file_path} --work=work -e {vhd_file_path.stem}",
+            f"ghdl --std=08 --no-formal --work=work {' '.join(str(path) for path in vhd_file_paths)} --work=work -e {vhd_file_path.stem}",
             "-p",
             f"hierarchy -top {vhd_file_path.stem}",
             "-p",

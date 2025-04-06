@@ -43,6 +43,6 @@ The initial value of output `o_sync` is '0'.
 
 ## Assertions
 
-| Label | Condition | Report | Severity |
-|-------|-----------|--------|----------|
-| stages_min_value | STAGES > 1 | `STAGES` must be larger than 1 | error |
+| Label | Condition | Report | Severity | File |
+|-------|-----------|--------|----------| -----|
+| stages_min_value | STAGES > 1 | `STAGES` must be larger than 1 | error | .vhd |

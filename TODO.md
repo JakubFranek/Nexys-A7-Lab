@@ -12,16 +12,19 @@ This is a task list for this repository. This list is not exhaustive.
 
 - [ ] Explore VUnit further
   - [x] Vary generics
-  - [ ] Include multiple test cases in a testbench
+  - [x] Include multiple test cases in a testbench
+  - [ ] Learn logging, check and run libraries
+
+- [ ] Create parametrized debouncer
+  - [x] Create RTL
+  - [x] Create VUnit testbench
+  - [ ] Create PSL assertions
 
 ## To do
 
 - [ ] Document `assume` statements
 - [ ] Document `assert` and `assume` statements	in `.psl` files as well
 
-- [ ] Create parametrized debouncer
-
-- [ ] Test `synthesize_svg` script on a block containing sub-blocks
 - [ ] Test FSM diagram generation in TerosHDL
 - [ ] Test multiple WaveDrom diagrams per VHDL file
 
@@ -48,3 +51,4 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Test PSL vunits with SymbiYosys and GHDL synthesis-only PSL functions
 - [x] Create parametrized synchronizer
 - [x] Create an issue about new GHDL release causing exec errors with VUnit (after MSYS2 update on 5/4/2025 there are actually no issues with VUnit)
+- [x] Test `synthesize_svg` script on a block containing sub-blocks
