@@ -87,6 +87,7 @@ begin
 
             -- glitches at the start of `input` transitions, and glitch in the middle of counter period
             elsif run("glitch_middle") then
+                wait for (PERIOD_CLK_ENA + 1) * CLK_PERIOD;
                 wait until rising_edge(clk);
 
                 input <= '1';

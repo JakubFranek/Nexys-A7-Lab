@@ -13,14 +13,19 @@ This is a task list for this repository. This list is not exhaustive.
 - [ ] Explore VUnit further
   - [x] Vary generics
   - [x] Include multiple test cases in a testbench
-  - [ ] Learn logging, check and run libraries
+  - [ ] Study logging library
+  - [ ] Study check library
+  - [ ] Study run library
 
 - [ ] Create parametrized debouncer
   - [x] Create RTL
   - [x] Create VUnit testbench
   - [ ] Create PSL assertions
+  - [ ] Test on FPGA
 
 ## To do
+
+- [ ] Create a Python script for convenient display of VUnit data in surfer, which will load the .vcd file as well as the state .ron file
 
 - [ ] Document `assume` statements
 - [ ] Document `assert` and `assume` statements	in `.psl` files as well

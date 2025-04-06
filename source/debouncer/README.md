@@ -8,9 +8,10 @@
 
 Parametrized debouncer.
 
-The initial value of `o_output` is '0'.
+The `i_input` signal can be asynchronous, as the debouncer includes a 2-stage flip-flop synchronizer.
 
 The `o_output` signal reacts to `i_input` after it is stable for `PERIOD` `i_clk_ena` cycles.
+The initial value of `o_output` is '0'.
 
 There is a latency of 4 `i_clk` cycles (2 cycles for the flip-flop synchronizer,
 1 cycle for counter reset XOR, 1 cycle for the output register) and up to 1 `i_clk_ena`
@@ -41,18 +42,17 @@ cycle (depending on when `i_input` changes).
 
 ## Signals
 
-| Name             | Type                                 | Description                                                  |
-| ---------------- | ------------------------------------ | ------------------------------------------------------------ |
-| q_counter        | unsigned(COUNTER_WIDTH - 1 downto 0) | counter register                                             |
-| input_sync       | std_logic                            | synchronized `i_input`                                       |
-| q_input_sync_dly | std_logic                            | delayed `input_sync`                                         |
-| q_counter_done   | std_logic                            | '1' in the next cycle after `q_counter` reaches `PERIOD` - 1 |
+| Name             | Type                                 | Description            |
+| ---------------- | ------------------------------------ | ---------------------- |
+| q_counter        | unsigned(COUNTER_WIDTH - 1 downto 0) | counter register       |
+| input_sync       | std_logic                            | synchronized `i_input` |
+| q_input_sync_dly | std_logic                            | delayed `input_sync`   |
 
 ## Constants
 
-| Name          | Type    | Value                                 | Description                            |
-| ------------- | ------- | ------------------------------------- | -------------------------------------- |
-| COUNTER_WIDTH | natural | natural(ceil(log2(real(PERIOD + 1)))) | counter width required to fit `PERIOD` |
+| Name          | Type    | Value                                 | Description                                                                                 |
+| ------------- | ------- | ------------------------------------- | ------------------------------------------------------------------------------------------- |
+| COUNTER_WIDTH | natural | natural(ceil(log2(real(PERIOD + 1)))) | counter width required to fit `PERIOD` + 1 (+1 because value 0 can last unpredictably long) |
 
 ## Processes
 - proc_clk: ( i_clk )

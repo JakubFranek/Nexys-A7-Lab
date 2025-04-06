@@ -1,8 +1,9 @@
 --! Parametrized debouncer.
 --!
---! The initial value of `o_output` is '0'.
+--! The `i_input` signal can be asynchronous, as the debouncer includes a 2-stage flip-flop synchronizer.
 --!
 --! The `o_output` signal reacts to `i_input` after it is stable for `PERIOD` `i_clk_ena` cycles.
+--! The initial value of `o_output` is '0'.
 --!
 --! There is a latency of 4 `i_clk` cycles (2 cycles for the flip-flop synchronizer,
 --! 1 cycle for counter reset XOR, 1 cycle for the output register) and up to 1 `i_clk_ena`
@@ -10,17 +11,16 @@
 
 ------------------------------------------------------------
 --! { signal: [
---!  { name: "i_clk (period = c)",  wave: "P..............." },
---!  { name: "i_clk_ena (period = e)",  wave: "P.......", period:2 },
+--!  { name: "i_clk (period = c)", wave: "P..............." },
+--!  { name: "i_clk_ena (period = e)", wave: "P.......", period:2 },
 --!  { name: "i_input",  wave: "0101............", node: "...C...." },
 --!  { name: "input_sync",  wave: "0..101..........", node: ".....E..." },
 --!  { name: "q_input_sync_dly",  wave: "0...101.........", node: "......F.." },
---!  { name: ["tspan",{style:"fill:gray"}, "counter reset"],  wave: "0..1..0........." },
---!  { name: "q_counter",  wave: "=.==....=.=.=.=.", data: [0,1,0,1,2,0,1], node: "........A......"},
---!  { name: "q_counter_done",  wave: "0...........10..", node: "............G.." },
+--!  { name: ["tspan", {style: "fill:gray"}, "counter reset"], wave: "0..1..0........." },
+--!  { name: "q_counter", wave: "=.==....=.=.=.=.", data: [0,1,0,1,2,0,1], node: "........A...B.."},
 --!  { name: "o_output", wave: "0............1..", node: ".............H.." }
 --! ],
---! edge: ["A~>G PERIOD*e", "C~>E 2c", "E~>F 1c", "G~>H 1c", "F~>A <=1e"],
+--! edge: ["A~>B PERIOD*e", "C~>E 2c", "E~>F 1c", "F~>A <=1e", "B~>H 1c"],
 --!  head:{
 --!     text:'Simplified time diagram (for PERIOD = 2)',
 --!     tick:0,
@@ -50,7 +50,7 @@ end entity debouncer;
 
 architecture rtl of debouncer is
 
-    --! counter width required to fit `PERIOD`
+    --! counter width required to fit `PERIOD` + 1 (+1 because value 0 can last unpredictably long)
     constant COUNTER_WIDTH : natural := natural(ceil(log2(real(PERIOD + 1))));
 
     --! counter register
@@ -58,7 +58,6 @@ architecture rtl of debouncer is
 
     signal input_sync       : std_logic;        --! synchronized `i_input`
     signal q_input_sync_dly : std_logic := '0'; --! delayed `input_sync`
-    signal q_counter_done   : std_logic := '0'; --! '1' in the next cycle after `q_counter` reaches `PERIOD` - 1
 
 begin
 
@@ -80,23 +79,17 @@ begin
             q_input_sync_dly <= input_sync;
 
             if (input_sync /= q_input_sync_dly) then
-                -- `i_input` has changed
+                -- `i_input` has changed, reset counter
                 q_counter <= (others => '0');
             else
-                q_counter_done <= '0'; -- default assignment
                 if (i_clk_ena = '1') then
                     if (q_counter = to_unsigned(PERIOD, COUNTER_WIDTH)) then
-                        q_counter      <= (others => '0');
-                        q_counter_done <= '1';
+                        q_counter <= (others => '0');
+                        o_output  <= input_sync;
                     else
                         q_counter <= q_counter + 1;
                     end if;
                 end if;
-            end if;
-
-            if (q_counter_done = '1') then
-                -- `i_input` has been stable for `PERIOD` cycles, copy its value to `o_output`
-                o_output <= input_sync;
             end if;
         end if;
 
