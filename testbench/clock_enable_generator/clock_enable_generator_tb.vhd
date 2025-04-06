@@ -39,10 +39,10 @@ begin
 
             wait until rising_edge(clk);
 
-            if (i mod PERIOD = 0) then
-                check(clk_ena = '1', "Clock enable not asserted at expected cycle");
+            if (i mod PERIOD = 0 and i /= 0) then
+                check(clk_ena = '1', "Check `clk_ena` is '1'");
             else
-                check(clk_ena = '0', "Clock enable asserted unexpectedly");
+                check(clk_ena = '0', "Check `clk_ena` is '0'");
             end if;
 
         end loop;

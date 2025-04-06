@@ -1,12 +1,12 @@
 --! Parametrized clock enable pulse generator.
 --!
---! The initial value of output `o_clk_ena` is '1'.
+--! The initial value of output `o_clk_ena` is '0'.
 
 ------------------------------------------------------------
 --! { signal: [
 --!  { name: "i_clk",  wave: "P........." },
 --!  { name: "q_counter",  wave: "==========", data: [0,1,2,3,0,1,2,3,0,1] },
---!  { name: "o_clk_ena", wave: "10..10..10" }
+--!  { name: "o_clk_ena", wave: "0...10..10" }
 --! ],
 --!  head:{
 --!     text:'Time diagram (for PERIOD = 4)',
@@ -29,7 +29,7 @@ entity clock_enable_generator is
     );
     port (
         i_clk     : in    std_logic;       --! input clock
-        o_clk_ena : out   std_logic := '1' --! clock enable signal, active high for one input clock cycle
+        o_clk_ena : out   std_logic := '0' --! clock enable signal, active high for one input clock cycle
     );
 end entity clock_enable_generator;
 

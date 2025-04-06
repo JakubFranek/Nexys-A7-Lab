@@ -8,7 +8,7 @@
 
 Parametrized clock enable pulse generator.
 
-The initial value of output `o_clk_ena` is '1'.
+The initial value of output `o_clk_ena` is '0'.
 
 
 
@@ -22,7 +22,7 @@ The initial value of output `o_clk_ena` is '1'.
 | Generic name | Type    | Value | Description                                                             |
 | ------------ | ------- | ----- | ----------------------------------------------------------------------- |
 | PERIOD       | natural | 10    | number of clock cycles required to generate a single clock enable pulse |
-| SIMULATION   | boolean | true  | generate logic needed for assert evaluation                             |
+| SIMULATION   | boolean | true  | generate simulation asserts                                             |
 
 ## Ports
 
