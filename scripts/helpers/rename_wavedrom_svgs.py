@@ -53,7 +53,9 @@ def update_markdown_references(
         md_file.write_text(content, encoding="utf-8")
 
         if renamed_refs > 0:
-            print(f"Updated {renamed_refs} SVG references in Markdown file: {md_file}")
+            print(
+                f"Updated {renamed_refs} SVG reference{'s' if renamed_refs > 1 else ''}: {md_file}"
+            )
 
 
 def cleanup_and_rename_svgs(directory: Path):
@@ -66,10 +68,6 @@ def cleanup_and_rename_svgs(directory: Path):
     for entity_folder in directory.rglob("*"):
         if entity_folder.is_dir():
             markdown_files = list(entity_folder.glob("*.md"))
-
-            svg_files: list[Path] = entity_folder.glob("*.svg")
-            for svg_file in svg_files:
-                add_white_background(svg_file)
 
             wavedrom_svg_files: list[Path] = [
                 f
@@ -111,6 +109,10 @@ def cleanup_and_rename_svgs(directory: Path):
                     print(f"Renamed SVG: {old_svg_path} -> {new_svg_path}")
 
             update_markdown_references(markdown_files, rename_map)
+
+            svg_files: list[Path] = entity_folder.glob("*.svg")
+            for svg_file in svg_files:
+                add_white_background(svg_file)
 
 
 if __name__ == "__main__":

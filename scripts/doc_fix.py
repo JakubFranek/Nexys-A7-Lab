@@ -16,6 +16,9 @@ def rename_entity_documents(directory: Path) -> None:
                 if (entity_folder / "README.md").exists():
                     (entity_folder / "README.md").unlink()
                 entity_markdown_file.rename(entity_folder / "README.md")
+                print(
+                    f"Doc renamed: {entity_markdown_file} -> {entity_folder / 'README.md'}"
+                )
 
 
 if __name__ == "__main__":

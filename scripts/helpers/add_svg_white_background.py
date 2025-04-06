@@ -21,7 +21,7 @@ def add_white_background(svg_file: Path):
     with open(svg_file, "w", encoding="utf-8") as f:
         f.write(modified_content)
 
-    print(f"Added white background to SVG: {svg_file}")
+    print(f"Added white background: {svg_file}")
 
 
 if __name__ == "__main__":

@@ -112,7 +112,7 @@ def document_asserts(directory: Path) -> None:
         # Truncate file in case new content is shorter than original
         md_file.truncate()
 
-    print(f"Assert table saved to {str(directory).replace('\\', '/')}/README.md")
+    print(f"Asserts saved: {str(directory)}\\README.md")
 
 
 def document_asserts_all(directory: Path) -> None:
