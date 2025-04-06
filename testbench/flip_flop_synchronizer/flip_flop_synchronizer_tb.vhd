@@ -36,7 +36,9 @@ begin
 
         test_runner_setup(runner, RUNNER_CFG);
 
-        check(sync = '0', "Initial value of `o_sync` is not '0'");
+        show(get_logger(default_checker), display_handler, pass);
+
+        check(sync = '0', "Check initial value of `o_sync` is '0'");
 
         wait until rising_edge(clk);
         wait for (CLK_PERIOD * 0.5);
@@ -46,12 +48,12 @@ begin
         for i in 1 to STAGES loop
 
             wait until rising_edge(clk);
-            check(sync = '0');
+            check(sync = '0', "Check `o_sync` is '0'");
 
         end loop;
 
         wait until rising_edge(clk);
-        check(sync = '1');
+        check(sync = '1', "Check `o_sync` is '1'");
 
         wait for (CLK_PERIOD * 0.5);
 
@@ -60,12 +62,12 @@ begin
         for i in 1 to STAGES loop
 
             wait until rising_edge(clk);
-            check(sync = '1');
+            check(sync = '1', "Check `o_sync` is '1'");
 
         end loop;
 
         wait until rising_edge(clk);
-        check(sync = '0');
+        check(sync = '0', "Check `o_sync` is '0'");
 
         test_runner_cleanup(runner); -- Simulation ends here
 
