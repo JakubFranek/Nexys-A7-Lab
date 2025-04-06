@@ -16,11 +16,9 @@ This is a task list for this repository. This list is not exhaustive.
 
 ## To do
 
-- [ ] Create an issue about new GHDL release causing exec errors with VUnit
-
 - [ ] Document `assume` statements
+- [ ] Document `assert` and `assume` statements	in `.psl` files as well
 
-- [ ] Create parametrized synchronizer
 - [ ] Create parametrized debouncer
 
 - [ ] Test `synthesize_svg` script on a block containing sub-blocks
@@ -48,3 +46,5 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Rename entity Markdown docs to README in order to show them on GitHub
 - [x] Add README to scripts directory
 - [x] Test PSL vunits with SymbiYosys and GHDL synthesis-only PSL functions
+- [x] Create parametrized synchronizer
+- [x] Create an issue about new GHDL release causing exec errors with VUnit (after MSYS2 update on 5/4/2025 there are actually no issues with VUnit)

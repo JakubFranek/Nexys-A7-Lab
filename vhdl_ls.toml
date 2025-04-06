@@ -15,11 +15,11 @@ osvvm.files = [
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmContext.vhd',
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmScriptSettingsPkg.vhd',
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmScriptSettingsPkg_default.vhd',
-    '.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmSettingsPkg.vhd',
-    '.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmSettingsPkg_default.vhd',
+    #'.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmSettingsPkg.vhd',
+    #'.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmSettingsPkg_default.vhd',
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmGlobalPkg.vhd',
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/OsvvmTypesPkg.vhd',
-    '.venv/Lib/site-packages/vunit/vhdl/osvvm/DelayCoveragePkg.vhd',
+    #'.venv/Lib/site-packages/vunit/vhdl/osvvm/DelayCoveragePkg.vhd',
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/RandomBasePkg.vhd',
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/RandomPkg.vhd',
     '.venv/Lib/site-packages/vunit/vhdl/osvvm/RandomProcedurePkg.vhd',
@@ -116,5 +116,5 @@ vunit_lib.files = [
 vunit_lib.is_third_party = true
 
 
-mylib.files = ['sources/**/*.vhd']
+mylib.files = ['source/**/*.vhd','testbench/**/*.vhd']
 mylib.is_third_party = false

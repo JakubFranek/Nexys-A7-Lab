@@ -2,7 +2,7 @@ import re
 from pathlib import Path
 
 
-def extract_asserts(vhdl_code):
+def extract_asserts_from_vhdl(vhdl_code: str) -> list[list[str]]:
     assert_pattern = re.compile(
         r"(?P<label>\w+)?\s*:\s*assert\s*\((?P<condition>[^\n\"]*)\)\s*(?:report\s*\"(?P<report>.*?)\"\s*)?(?:severity\s*(?P<severity>\w+))?"
     )
@@ -13,22 +13,38 @@ def extract_asserts(vhdl_code):
         condition = (match.group("condition") or "").strip().replace("|", "&#124;")
         report = (match.group("report") or "").strip()
         severity = (match.group("severity") or "").strip()
-        asserts.append([label, condition, report, severity])
+        asserts.append([label, condition, report, severity, ".vhd"])
 
     return asserts
 
 
-def generate_markdown_table(asserts):
-    markdown = "| Label | Condition | Report | Severity |\n"
-    markdown += "|-------|-----------|--------|----------|\n"
+def extract_asserts_from_psl(psl_code: str) -> list[list[str]]:
+    assert_pattern = re.compile(
+        r"(?P<label>\w+)?\s*:\s*assert\s*(?P<condition>[\S\s]*?)\s*;\n"
+    )
 
-    for label, condition, report, severity in asserts:
-        markdown += f"| {label} | {condition} | {report} | {severity} |\n"
+    asserts = []
+    for match in assert_pattern.finditer(psl_code):
+        label = (match.group("label") or "").strip()
+        condition = (match.group("condition") or "").strip().replace("|", "&#124;")
+        report = ""
+        severity = ""
+        asserts.append([label, condition, report, severity, ".psl"])
+
+    return asserts
+
+
+def generate_markdown_table(asserts: list[list[str]]) -> str:
+    markdown = "| Label | Condition | Report | Severity | File |\n"
+    markdown += "|-------|-----------|--------|----------| -----|\n"
+
+    for label, condition, report, severity, file in asserts:
+        markdown += f"| {label} | {condition} | {report} | {severity} | {file} |\n"
 
     return markdown
 
 
-def document_asserts(directory: Path):
+def document_asserts(directory: Path) -> None:
     with open(f"{directory}/{directory.name}.vhd", "r") as file:
         vhdl_code = file.readlines()
 
@@ -58,8 +74,15 @@ def document_asserts(directory: Path):
 
     cleaned_code = "\n".join(cleaned_lines)
 
-    asserts = extract_asserts(cleaned_code)
-    markdown_table = generate_markdown_table(asserts)
+    vhdl_asserts = extract_asserts_from_vhdl(cleaned_code)
+    psl_asserts = []
+
+    if (directory / f"{directory.name}.psl").exists():
+        with open(f"{directory}/{directory.name}.psl", "r") as file:
+            psl_code = "\n".join(file.readlines())
+            psl_asserts = extract_asserts_from_psl(psl_code)
+
+    markdown_table = generate_markdown_table(vhdl_asserts + psl_asserts)
 
     if not (directory / "README.md").exists():
         print(f"WARNING: {directory}/README.md does not exist. Skipping it...")
@@ -92,7 +115,7 @@ def document_asserts(directory: Path):
     print(f"Assert table saved to {str(directory).replace('\\', '/')}/README.md")
 
 
-def document_asserts_all(directory: Path):
+def document_asserts_all(directory: Path) -> None:
     for entity_folder in directory.rglob("*"):
         if entity_folder.is_dir():
             vhdl_files = list(entity_folder.glob("*.vhd"))

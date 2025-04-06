@@ -5,8 +5,9 @@ This is a list of known limitations of the tools that are used in this repositor
 ## GHDL
 - code coverage analysis is not supported with LLVM backend (only GCC backend supports it)
 - some PSL built-in functions like `prev()` are not supported for simulation (only synthesis)
+  - the workaround is to put these unsupported PSL statements into a separate `.psl` file, which is used by SymbiYosys but not when running GHDL for simulation (for example via VUnit)
 
-## SymbiYosys
+## SymbiYosys (SBY)
 - `$assert` cells do not contain severity levels
   - this means any failing assert regardless of severity level causes formal verification to fail
   - [see issue](https://github.com/YosysHQ/sby/issues/318)
@@ -19,7 +20,7 @@ This is a list of known limitations of the tools that are used in this repositor
   - since it takes time before VHDL-LS releases are merged into Teros HDL, it might be possible to install VDHL-LS VS Code extension separately and disable VHDL-LS in Teros HDL
 
 ## VSG
-- PSL statements are only minimally supported
+- PSL statements are only minimally supported (they are not linted or checked, but no false errors are reported either)
 
 ## VUnit
 - PSL vunits are not supported
@@ -30,10 +31,12 @@ This is a list of known limitations of the tools that are used in this repositor
   - to be able to version the time diagrams properly, [cleanup_wavedrom_svgs.py](../scripts/cleanup_wavedrom_svgs.py) script has been made to automatically rename the SVG files according to a predictable pattern
 - generating schematics via GHDL+yosys integration is broken (missing ghdl.so file), but this has been bypassed by [synthesize_svg.py](../scripts/synthesize_svg.py) script
   - [will be supposedly fixed in TerosHDL v7.0.1](https://github.com/TerosTechnology/vscode-terosHDL/issues/717#issuecomment-2733571436)
+- [TerosHDL sometimes lints unexpected files using VSG](https://github.com/TerosTechnology/vscode-terosHDL/issues/748)
 
 ## Surfer
 - setting default time unit in config file is not yet supported, [see this issue](https://gitlab.com/surfer-project/surfer/-/issues/373)
+- [unknown whether VS Code surfer extension supports customizing config](https://gitlab.com/surfer-project/surfer-vscode/-/issues/18)
 
 ## AMD Vivado
-- PSL statements are not supported in plain VHDL-2008 (only workaround seems to be `-- psl` comment blocks)
+- [PSL statements seem to be not supported in plain VHDL-2008](https://adaptivesupport.amd.com/s/question/0D5KZ00000aaQjI0AU/are-vhdl2008-psl-asserts-supported-in-vivado?language=en_US) (only workaround seems to be `-- psl` comment blocks)
 - case of port names in XDC constaints must exactly match the case in VHDL code
