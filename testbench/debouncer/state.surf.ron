@@ -16,7 +16,7 @@
     highlight_focused: None,
     fill_high_values: None,
     waves: Some((
-        source: File("D:\\Electronics\\FPGA\\Nexys-A7-Lab\\simulation\\vunit_out\\test_output\\lib.debouncer_tb.period_clk_ena=5.period_debounce=10.gla07fab544b5ca674114fc1822ec0da8f10a785ca\\ghdl\\wave.vcd"),
+        source: File("D:\\Electronics\\FPGA\\Nexys-A7-Lab\\simulation\\vunit_out\\test_output\\lib.debouncer_tb.period_clk_ena=5.period_debounce=10.gla59aea22861b7d6a3b2bed6874a6e13f79bdf3e1\\ghdl\\wave.vcd"),
         format: Vcd,
         active_scope: Some(WaveScope((
             strs: [
@@ -39,7 +39,7 @@
                     selected: false,
                 ),
                 (
-                    item_ref: (4),
+                    item_ref: (3),
                     level: 0,
                     unfolded: true,
                     selected: false,
@@ -63,13 +63,7 @@
                     selected: false,
                 ),
                 (
-                    item_ref: (8),
-                    level: 0,
-                    unfolded: true,
-                    selected: false,
-                ),
-                (
-                    item_ref: (3),
+                    item_ref: (4),
                     level: 0,
                     unfolded: true,
                     selected: false,
@@ -77,44 +71,7 @@
             ],
         ),
         displayed_items: {
-            (5): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "debouncer_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "input_sync",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "input_sync",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (2): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "debouncer_tb",
-                        ],
-                    ),
-                    name: "clk_ena",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "clk_ena",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (3): Variable((
+            (4): Variable((
                 variable_ref: (
                     path: (
                         strs: [
@@ -150,7 +107,25 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (8): Variable((
+            (2): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "debouncer_tb",
+                        ],
+                    ),
+                    name: "clk_ena",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "clk_ena",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (5): Variable((
                 variable_ref: (
                     path: (
                         strs: [
@@ -158,18 +133,18 @@
                             "inst_uut",
                         ],
                     ),
-                    name: "q_counter_done",
+                    name: "input_sync",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "q_counter_done",
+                display_name: "input_sync",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (4): Variable((
+            (3): Variable((
                 variable_ref: (
                     path: (
                         strs: [
@@ -226,7 +201,7 @@
                 height_scaling_factor: None,
             )),
         },
-        display_item_ref_counter: 8,
+        display_item_ref_counter: 7,
         viewports: [
             (
                 curr_left: (0.0),

@@ -25,8 +25,6 @@ This is a task list for this repository. This list is not exhaustive.
 
 ## To do
 
-- [ ] Create a Python script for convenient display of VUnit data in surfer, which will load the .vcd file as well as the state .ron file
-
 - [ ] Document `assume` statements
 - [ ] Document `assert` and `assume` statements	in `.psl` files as well
 
@@ -57,3 +55,4 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Create parametrized synchronizer
 - [x] Create an issue about new GHDL release causing exec errors with VUnit (after MSYS2 update on 5/4/2025 there are actually no issues with VUnit)
 - [x] Test `synthesize_svg` script on a block containing sub-blocks
+- [x] Create a Python script for convenient display of VUnit data in surfer, which will load the .vcd file as well as the state .ron file
