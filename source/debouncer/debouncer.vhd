@@ -5,14 +5,18 @@
 --! The `o_output` signal reacts to `i_input` after it is stable for `PERIOD` `i_clk_ena` cycles.
 --! The initial value of `o_output` is '0'.
 --!
---! There is a latency of 4 `i_clk` cycles (2 cycles for the flip-flop synchronizer,
---! 1 cycle for counter reset XOR, 1 cycle for the output register) and up to 1 `i_clk_ena`
---! cycle (depending on when `i_input` changes).
+--! There is a total latency of 4 `i_clk` cycles (2 cycles for the flip-flop synchronizer,
+--! 1 cycle for counter reset XOR, 1 cycle for the output register) and the period during which stability of
+--! `i_input` is required is actually from `PERIOD` to `PERIOD + 1` `i_clk_ena` cycles (depending on the instant
+--! when `i_input` changes).
+--!
+--! Please note that the counter value is compared to `PERIOD`, not `PERIOD - 1`. This is done to ensure
+--! that the output is stable for at least `PERIOD` `i_clk_ena` cycles, but likely a bit more.
 
 ------------------------------------------------------------
 --! { signal: [
 --!  { name: "i_clk (period = c)", wave: "P..............." },
---!  { name: "i_clk_ena (period = e)", wave: "P.......", period:2 },
+--!  { name: "i_clk_ena (period = e)", wave: "PlPlPlPlPlPlPlPl"},
 --!  { name: "i_input",  wave: "0101............", node: "...C...." },
 --!  { name: "input_sync",  wave: "0..101..........", node: ".....E..." },
 --!  { name: "q_input_sync_dly",  wave: "0...101.........", node: "......F.." },
@@ -107,6 +111,34 @@ begin
             assert (PERIOD > 1)
                 report "`PERIOD` must be larger than 1"
                 severity error;
+
+        -- psl assume always (i_clk_ena = '1' -> next i_clk_ena = '0');
+
+        -- psl cover_output_toggle :
+        -- cover {(o_output = '0')[+]; (o_output = '1')[+]; (o_output = '0')[+]};
+
+        -- psl cover_input_toggle :
+        -- cover {(i_input = '0'); (i_input = '1'); (i_input = '0'); (i_input = '1')[*3 to inf]; (o_output = '1')};
+
+        -- psl q_counter_reset_input_change :
+        -- assert (always (input_sync /= q_input_sync_dly) -> next (q_counter = 0))
+        -- report "`q_counter` not reset when `i_input` changes"
+        -- severity error;
+
+        -- psl q_counter_reset_period :
+        -- assert (always (q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena = '1'
+        -- and input_sync = q_input_sync_dly) -> next (q_counter = 0))
+        -- report "`q_counter` not reset after achieving value `PERIOD`"
+        -- severity error;
+
+        -- psl o_output_value :
+        -- assert (always (
+        -- q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and
+        -- i_clk_ena = '1' and
+        -- input_sync = q_input_sync_dly
+        -- ) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly))
+        -- report "`o_output` not set when `i_input` is stable for `PERIOD` clock cycles"
+        -- severity error;
 
         end block psl_block;
 

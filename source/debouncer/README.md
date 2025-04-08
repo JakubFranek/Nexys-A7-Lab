@@ -13,9 +13,13 @@ The `i_input` signal can be asynchronous, as the debouncer includes a 2-stage fl
 The `o_output` signal reacts to `i_input` after it is stable for `PERIOD` `i_clk_ena` cycles.
 The initial value of `o_output` is '0'.
 
-There is a latency of 4 `i_clk` cycles (2 cycles for the flip-flop synchronizer,
-1 cycle for counter reset XOR, 1 cycle for the output register) and up to 1 `i_clk_ena`
-cycle (depending on when `i_input` changes).
+There is a total latency of 4 `i_clk` cycles (2 cycles for the flip-flop synchronizer,
+1 cycle for counter reset XOR, 1 cycle for the output register) and the period during which stability of
+`i_input` is required is actually from `PERIOD` to `PERIOD + 1` `i_clk_ena` cycles (depending on the instant
+when `i_input` changes).
+
+Please note that the counter value is compared to `PERIOD`, not `PERIOD - 1`. This is done to ensure
+that the output is stable for at least `PERIOD` `i_clk_ena` cycles, but likely a bit more.
 
 
 
@@ -66,3 +70,6 @@ cycle (depending on when `i_input` changes).
 | Label | Condition | Report | Severity | File |
 |-------|-----------|--------|----------| -----|
 | counter_max_min_value | PERIOD > 1 | `PERIOD` must be larger than 1 | error | .vhd |
+| q_counter_reset_input_change | always (input_sync /= q_input_sync_dly) -> next (q_counter = 0) | `q_counter` not reset when `i_input` changes | error | .vhd |
+| q_counter_reset_period | always (q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena = '1' and input_sync = q_input_sync_dly) -> next (q_counter = 0) | `q_counter` not reset after achieving value `PERIOD` | error | .vhd |
+| o_output_value | always ( q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena = '1' and input_sync = q_input_sync_dly ) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly) | `o_output` not set when `i_input` is stable for `PERIOD` clock cycles | error | .vhd |
