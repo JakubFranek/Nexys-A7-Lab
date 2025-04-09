@@ -20,16 +20,12 @@ This is a task list for this repository. This list is not exhaustive.
 - [ ] Create parametrized debouncer
   - [x] Create RTL
   - [x] Create VUnit testbench
-  - [ ] Create PSL assertions
+  - [x] Create PSL assertions
   - [ ] Test on FPGA
 
 ## To do
 
-- [ ] Document `assume` statements
-- [ ] Document `assert` and `assume` statements	in `.psl` files as well
-
 - [ ] Test FSM diagram generation in TerosHDL
-- [ ] Test multiple WaveDrom diagrams per VHDL file
 
 ## Backlog
 
@@ -56,3 +52,6 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Create an issue about new GHDL release causing exec errors with VUnit (after MSYS2 update on 5/4/2025 there are actually no issues with VUnit)
 - [x] Test `synthesize_svg` script on a block containing sub-blocks
 - [x] Create a Python script for convenient display of VUnit data in surfer, which will load the .vcd file as well as the state .ron file
+- [x] Document `assume` statements
+- [x] Document `assert` and `assume` statements	in `.psl` files as well
+- [x] Test multiple WaveDrom diagrams per VHDL file

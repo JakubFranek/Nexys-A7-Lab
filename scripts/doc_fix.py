@@ -1,7 +1,9 @@
 from pathlib import Path
 
 from helpers.rename_wavedrom_svgs import cleanup_and_rename_svgs
-from helpers.document_asserts import document_asserts_all
+from helpers.document_asserts import document_all_asserts
+from helpers.document_assumptions import document_all_assumptions
+from helpers.document_covers import document_all_covers
 
 
 def rename_entity_documents(directory: Path) -> None:
@@ -24,4 +26,6 @@ def rename_entity_documents(directory: Path) -> None:
 if __name__ == "__main__":
     rename_entity_documents(Path("source"))
     cleanup_and_rename_svgs(Path("source"))
-    document_asserts_all(Path("source"))
+    document_all_covers(Path("source"))
+    document_all_assumptions(Path("source"))
+    document_all_asserts(Path("source"))

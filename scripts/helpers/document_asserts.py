@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+from helpers.parse_vhdl import uncomment_psl
 
 
 def extract_asserts_from_vhdl(vhdl_code: str) -> list[list[str]]:
@@ -26,7 +27,12 @@ def extract_asserts_from_psl(psl_code: str) -> list[list[str]]:
     asserts = []
     for match in assert_pattern.finditer(psl_code):
         label = (match.group("label") or "").strip()
-        condition = (match.group("condition") or "").strip().replace("|", "&#124;")
+        condition = (
+            (match.group("condition") or "")
+            .strip()
+            .replace("|", "&#124;")
+            .replace("\n", "")
+        )
         report = ""
         severity = ""
         asserts.append([label, condition, report, severity, ".psl"])
@@ -48,31 +54,7 @@ def document_asserts(directory: Path) -> None:
     with open(f"{directory}/{directory.name}.vhd", "r") as file:
         vhdl_code = file.readlines()
 
-    cleaned_lines = []
-    inside_psl = False
-    psl_block = []
-    for line in vhdl_code:
-        if "-- psl" in line:
-            inside_psl = True
-            psl_block = [
-                line.replace("-- psl", "").strip()
-            ]  # Start PSL block, remove leading marker
-            continue
-
-        if inside_psl:
-            stripped_line = line.replace("--", "").strip()
-            psl_block.append(stripped_line)  # Collect multiline PSL assert
-            if ";" in stripped_line:
-                inside_psl = False  # End PSL block
-                cleaned_lines.append(" ".join(psl_block))  # Reassemble as a single line
-                psl_block = []
-            continue
-
-        cleaned_lines.append(
-            re.sub(r"--(?!\s*psl).*", "", line)
-        )  # Remove non-PSL comments
-
-    cleaned_code = "\n".join(cleaned_lines)
+    cleaned_code = uncomment_psl(vhdl_code)
 
     vhdl_asserts = extract_asserts_from_vhdl(cleaned_code)
     psl_asserts = []
@@ -115,7 +97,7 @@ def document_asserts(directory: Path) -> None:
     print(f"Asserts saved: {str(directory)}\\README.md")
 
 
-def document_asserts_all(directory: Path) -> None:
+def document_all_asserts(directory: Path) -> None:
     for entity_folder in directory.rglob("*"):
         if entity_folder.is_dir():
             vhdl_files = list(entity_folder.glob("*.vhd"))
@@ -125,4 +107,4 @@ def document_asserts_all(directory: Path) -> None:
 
 
 if __name__ == "__main__":
-    document_asserts_all(Path("source"))
+    document_all_asserts(Path("source"))

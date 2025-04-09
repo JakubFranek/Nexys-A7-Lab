@@ -18,7 +18,7 @@ cover: append 1
 smtbmc z3
 
 [script]
-ghdl -gPERIOD=3 -gSIMULATION=true -fpsl --std=08 debouncer.vhd flip_flop_synchronizer.vhd -e debouncer
+ghdl -gPERIOD=3 -gSIMULATION=true -fpsl --std=08 debouncer.vhd flip_flop_synchronizer.vhd debouncer.psl -e debouncer
 prep -top debouncer
 chformal -assert -remove */*_note
 chformal -assert -remove */*_warning
@@ -26,3 +26,4 @@ chformal -assert -remove */*_warning
 [files]
 source/flip_flop_synchronizer/flip_flop_synchronizer.vhd
 source/debouncer/debouncer.vhd
+source/debouncer/debouncer.psl
