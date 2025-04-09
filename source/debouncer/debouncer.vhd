@@ -5,26 +5,22 @@
 --! The `o_output` signal reacts to `i_input` after it is stable for `PERIOD` `i_clk_ena` cycles.
 --! The initial value of `o_output` is '0'.
 --!
---! There is a total latency of 4 `i_clk` cycles (2 cycles for the flip-flop synchronizer,
---! 1 cycle for counter reset XOR, 1 cycle for the output register) and the period during which stability of
---! `i_input` is required is actually from `PERIOD` to `PERIOD + 1` `i_clk_ena` cycles (depending on the instant
---! when `i_input` changes).
---!
---! Please note that the counter value is compared to `PERIOD`, not `PERIOD - 1`. This is done to ensure
---! that the output is stable for at least `PERIOD` `i_clk_ena` cycles, but likely a bit more.
-
+--! There is a total latency of 3 `i_clk` cycles (2 cycles for the flip-flop synchronizer and
+--! 1 cycle for counter reset XOR) and the period during which stability of
+--! `i_input` is required is actually from `PERIOD` to `PERIOD + 1` `i_clk_ena` cycles, depending on the instant
+--! when `i_input` changes (this is why the counter final value is `PERIOD` and not `PERIOD - 1`).
 ------------------------------------------------------------
 --! { signal: [
---!  { name: "i_clk (period = c)", wave: "P..............." },
---!  { name: "i_clk_ena (period = e)", wave: "PlPlPlPlPlPlPlPl"},
---!  { name: "i_input",  wave: "0101............", node: "...C...." },
---!  { name: "input_sync",  wave: "0..101..........", node: ".....E..." },
---!  { name: "q_input_sync_dly",  wave: "0...101.........", node: "......F.." },
---!  { name: ["tspan", {style: "fill:gray"}, "counter reset"], wave: "0..1..0........." },
---!  { name: "q_counter", wave: "=.==....=.=.=.=.", data: [0,1,0,1,2,0,1], node: "........A...B.."},
---!  { name: "o_output", wave: "0............1..", node: ".............H.." }
+--!  { name: "i_clk (period = c)", wave: "P.............." },
+--!  { name: "i_clk_ena (period = e)", wave: "lhlhlhlhlhlhlhl", node: "..I"},
+--!  { name: "i_input",  wave: "0101...........", node: "...C.." },
+--!  { name: "input_sync",  wave: "0..101.........", node: ".....E." },
+--!  { name: "q_input_sync_dly",  wave: "0...101........", node: "......F" },
+--!  { name: ["tspan", {style: "fill:gray"}, "counter reset"], wave: "0..1..0........" },
+--!  { name: "q_counter", wave: "=.==....=.=.=.=", data: [0,1,0,1,2,0,1], node: "........A...B."},
+--!  { name: "o_output", wave: "0...........1..", node: "............H.." }
 --! ],
---! edge: ["A~>B PERIOD*e", "C~>E 2c", "E~>F 1c", "F~>A <=1e", "B~>H 1c"],
+--! edge: ["A~>H PERIOD*e", "C~>E 2c", "E~>F 1c", "F~>A <=1e"],
 --!  head:{
 --!     text:'Simplified time diagram (for PERIOD = 2)',
 --!     tick:0,
