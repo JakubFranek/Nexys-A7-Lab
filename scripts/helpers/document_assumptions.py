@@ -46,15 +46,16 @@ def document_assumptions(directory: Path) -> None:
 
     cleaned_code = uncomment_psl(vhdl_code)
 
-    vhdl_assumes = extract_assumptions_from_vhdl(cleaned_code)
-    psl_assumes = []
+    vhdl_assumptions = extract_assumptions_from_vhdl(cleaned_code)
+    psl_assumptions = []
 
     if (directory / f"{directory.name}.psl").exists():
         with open(f"{directory}/{directory.name}.psl", "r") as file:
             psl_code = "\n".join(file.readlines())
-            psl_assumes = extract_assumptions_from_psl(psl_code)
+            psl_assumptions = extract_assumptions_from_psl(psl_code)
 
-    markdown_table = generate_markdown_table(vhdl_assumes + psl_assumes)
+    assumptions = vhdl_assumptions + psl_assumptions
+    markdown_table = generate_markdown_table(assumptions)
 
     if not (directory / "README.md").exists():
         print(f"WARNING: {directory}/README.md does not exist. Skipping it...")
@@ -78,8 +79,9 @@ def document_assumptions(directory: Path) -> None:
         for index, line in enumerate(lines):
             md_file.write(line)
 
-        md_file.write("\n## Assumptions\n\n")
-        md_file.write(markdown_table)
+        if len(assumptions) > 0:
+            md_file.write("\n## Assumptions\n\n")
+            md_file.write(markdown_table)
 
         # Truncate file in case new content is shorter than original
         md_file.truncate()

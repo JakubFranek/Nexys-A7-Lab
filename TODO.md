@@ -25,6 +25,7 @@ This is a task list for this repository. This list is not exhaustive.
 
 - [ ] Create 7-segment display controller
   - [x] Create RTL
+  - [ ] Add documentation and WaveDrom time diagram
   - [ ] Create VUnit testbench
   - [ ] Create PSL assertions
   - [ ] Test on FPGA
@@ -65,3 +66,4 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Document `assume` statements
 - [x] Document `assert` and `assume` statements	in `.psl` files as well
 - [x] Test multiple WaveDrom diagrams per VHDL file
+- [x] Edit PSL documenting scripts to skip cover/assume/assert sections if empty

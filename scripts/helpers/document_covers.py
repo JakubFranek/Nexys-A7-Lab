@@ -63,7 +63,8 @@ def document_covers(directory: Path) -> None:
             psl_code = "\n".join(file.readlines())
             psl_covers = extract_covers_from_psl(psl_code)
 
-    markdown_table = generate_markdown_table(vhdl_covers + psl_covers)
+    covers = vhdl_covers + psl_covers
+    markdown_table = generate_markdown_table(covers)
 
     if not (directory / "README.md").exists():
         print(f"WARNING: {directory}/README.md does not exist. Skipping it...")
@@ -87,8 +88,9 @@ def document_covers(directory: Path) -> None:
         for index, line in enumerate(lines):
             md_file.write(line)
 
-        md_file.write("\n## Covers\n\n")
-        md_file.write(markdown_table)
+        if len(covers) > 0:
+            md_file.write("\n## Covers\n\n")
+            md_file.write(markdown_table)
 
         # Truncate file in case new content is shorter than original
         md_file.truncate()

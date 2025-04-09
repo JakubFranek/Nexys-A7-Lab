@@ -64,7 +64,8 @@ def document_asserts(directory: Path) -> None:
             psl_code = "\n".join(file.readlines())
             psl_asserts = extract_asserts_from_psl(psl_code)
 
-    markdown_table = generate_markdown_table(vhdl_asserts + psl_asserts)
+    asserts = vhdl_asserts + psl_asserts
+    markdown_table = generate_markdown_table(asserts)
 
     if not (directory / "README.md").exists():
         print(f"WARNING: {directory}/README.md does not exist. Skipping it...")
@@ -88,8 +89,9 @@ def document_asserts(directory: Path) -> None:
         for index, line in enumerate(lines):
             md_file.write(line)
 
-        md_file.write("\n## Assertions\n\n")
-        md_file.write(markdown_table)
+        if len(asserts) > 0:
+            md_file.write("\n## Assertions\n\n")
+            md_file.write(markdown_table)
 
         # Truncate file in case new content is shorter than original
         md_file.truncate()
