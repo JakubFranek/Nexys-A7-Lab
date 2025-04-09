@@ -23,7 +23,17 @@ This is a task list for this repository. This list is not exhaustive.
   - [x] Create PSL assertions
   - [ ] Test on FPGA
 
+- [ ] Create 7-segment display controller
+  - [x] Create RTL
+  - [ ] Create VUnit testbench
+  - [ ] Create PSL assertions
+  - [ ] Test on FPGA
+
 ## To do
+
+- [ ] Create BCD counter
+
+- [ ] Create PWM controller
 
 - [ ] Test FSM diagram generation in TerosHDL
 
