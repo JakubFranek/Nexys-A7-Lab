@@ -22,8 +22,8 @@ TODO.dm        # Project task list
 
 ## Supported peripherals / controllers
 
-- [ ] Switch / button debouncer
-- [ ] 7-segment display controller
+- [x] Switch / button debouncer
+- [x] 7-segment display controller
 - [ ] PWM controller
 - [ ] VGA controller
 - [ ] PS/2 mouse controller
