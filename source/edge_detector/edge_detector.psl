@@ -1,0 +1,18 @@
+vunit edge_detector_psl (edge_detector(rtl)) {
+
+    default clock is rising_edge(i_clk);
+
+    -- Assertions
+    input_rising_edge:
+    assert always {not i_input; i_input} |=> {o_rising_edge and o_any_edge and not o_falling_edge};
+
+    input_falling_edge:
+    assert always {i_input; not i_input} |=> {o_falling_edge and o_any_edge and not o_rising_edge};
+
+    input_high:
+    assert always {i_input[*2]} |=> {not o_any_edge and not o_rising_edge and not o_falling_edge};
+
+    input_low:
+    assert always {not i_input[*2]} |=> {not o_any_edge and not o_rising_edge and not o_falling_edge};
+
+}

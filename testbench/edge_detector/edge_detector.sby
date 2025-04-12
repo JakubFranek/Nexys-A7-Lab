@@ -1,0 +1,28 @@
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc: mode bmc
+bmc: depth 10
+bmc: append 1
+prove: mode prove
+prove: depth 10
+prove: append 1
+cover: mode cover
+cover: depth 10
+cover: append 1
+
+[engines]
+smtbmc z3
+
+[script]
+ghdl -fpsl --std=08 edge_detector.vhd edge_detector.psl -e edge_detector
+prep -top edge_detector
+chformal -assert -remove */*_note
+chformal -assert -remove */*_warning
+
+[files]
+source/edge_detector/edge_detector.vhd
+source/edge_detector/edge_detector.psl
