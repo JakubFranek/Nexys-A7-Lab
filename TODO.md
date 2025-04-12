@@ -17,18 +17,14 @@ This is a task list for this repository. This list is not exhaustive.
   - [ ] Study check library
   - [ ] Study run library
 
-- [ ] Create parametrized debouncer
-  - [x] Create RTL
-  - [x] Create VUnit testbench
-  - [x] Create PSL assertions
-  - [ ] Test on FPGA
+
 
 - [ ] Create 7-segment display controller
   - [x] Create RTL
   - [ ] Add documentation and WaveDrom time diagram
   - [ ] Create VUnit testbench
   - [ ] Create PSL assertions
-  - [ ] Test on FPGA
+  - [x] Test on FPGA
 
 ## To do
 
@@ -70,3 +66,8 @@ This is a task list for this repository. This list is not exhaustive.
   - [x] Add documentation and WaveDrom time diagram
   - [x] Create VUnit testbench
   - [x] Create PSL assertions
+- [x] Create parametrized debouncer
+  - [x] Create RTL
+  - [x] Create VUnit testbench
+  - [x] Create PSL assertions
+  - [x] Test on FPGA

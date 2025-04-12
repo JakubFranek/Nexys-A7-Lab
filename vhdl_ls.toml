@@ -116,5 +116,5 @@ vunit_lib.files = [
 vunit_lib.is_third_party = true
 
 
-mylib.files = ['source/**/*.vhd','testbench/**/*.vhd']
+mylib.files = ['source/**/*.vhd','testbench/**/*.vhd', 'vivado/**/*.vhd']
 mylib.is_third_party = false
