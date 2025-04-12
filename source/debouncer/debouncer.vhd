@@ -11,14 +11,15 @@
 --! when `i_input` changes (this is why the counter final value is `PERIOD` and not `PERIOD - 1`).
 ------------------------------------------------------------
 --! { signal: [
---!  { name: "i_clk (period = c)", wave: "P.............." },
---!  { name: "i_clk_ena (period = e)", wave: "lhlhlhlhlhlhlhl", node: "..I"},
---!  { name: "i_input",  wave: "0101...........", node: "...C.." },
---!  { name: "input_sync",  wave: "0..101.........", node: ".....E." },
---!  { name: "q_input_sync_dly",  wave: "0...101........", node: "......F" },
---!  { name: ["tspan", {style: "fill:gray"}, "counter reset"], wave: "0..1..0........" },
---!  { name: "q_counter", wave: "=.==....=.=.=.=", data: [0,1,0,1,2,0,1], node: "........A...B."},
---!  { name: "o_output", wave: "0...........1..", node: "............H.." }
+--!  { name: "i_clk (period = c)",      wave: "P.............." },
+--!  { name: "i_clk_ena (period = e)",  wave: "lhlhlhlhlhlhlhl", node: "..I"},
+--!  { name: "i_input",                 wave: "0101...........", node: "...C.." },
+--!  { name: "input_sync",              wave: "0..101.........", node: ".....E." },
+--!  { name: "q_input_sync_dly",        wave: "0...101........", node: "......F" },
+--!  { name: ["tspan", {style: "fill:gray"}, "counter reset"],
+--!                                     wave: "0..1..0........" },
+--!  { name: "q_counter",               wave: "=.==....=.=.=.=", data: [0,1,0,1,2,0,1], node: "........A...B."},
+--!  { name: "o_output",                wave: "0...........1..", node: "............H.." }
 --! ],
 --! edge: ["A~>H PERIOD*e", "C~>E 2c", "E~>F 1c", "F~>A <=1e"],
 --!  head:{
@@ -37,8 +38,8 @@ library ieee;
 
 entity debouncer is
     generic (
-        PERIOD     : natural := 10;  --! number of `i_clk_ena` cycles during which `i_input` must be stable
-        SIMULATION : boolean := true --! generate simulation asserts
+        --! number of `i_clk_ena` cycles during which `i_input` must be stable
+        PERIOD : natural range 1 to natural'high := 10
     );
     port (
         i_input   : in    std_logic;       --! input signal to be debounced
@@ -83,7 +84,7 @@ begin
                 q_counter <= (others => '0');
             else
                 if (i_clk_ena = '1') then
-                    if (q_counter = to_unsigned(PERIOD, COUNTER_WIDTH)) then
+                    if (q_counter = PERIOD) then
                         q_counter <= (others => '0');
                         o_output  <= input_sync;
                     else
@@ -94,50 +95,5 @@ begin
         end if;
 
     end process proc_clk;
-
-    gen_simulation : if SIMULATION generate
-
-        psl_block : block is
-
-        -- psl default clock is rising_edge(i_clk);
-
-        begin
-
-            counter_max_min_value:
-            assert (PERIOD > 1)
-                report "`PERIOD` must be larger than 1"
-                severity error;
-
-        -- psl assume (always (i_clk_ena = '1' -> next i_clk_ena = '0'));
-
-        -- psl cover_output_toggle :
-        -- cover {(o_output = '0')[+]; (o_output = '1')[+]; (o_output = '0')[+]};
-
-        -- psl cover_input_toggle :
-        -- cover {(i_input = '0'); (i_input = '1'); (i_input = '0'); (i_input = '1')[*2 to inf]; (o_output = '1')};
-
-        -- psl q_counter_resets_on_input_change :
-        -- assert (always (input_sync /= q_input_sync_dly) -> next (q_counter = 0))
-        -- report "`q_counter` not reset when `i_input` changes"
-        -- severity error;
-
-        -- psl q_counter_resets_after_period :
-        -- assert (always (q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena = '1'
-        -- and input_sync = q_input_sync_dly) -> next (q_counter = 0))
-        -- report "`q_counter` not reset after achieving value `PERIOD`"
-        -- severity error;
-
-        -- psl o_output_updates_value :
-        -- assert (always (
-        -- q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and
-        -- i_clk_ena = '1' and
-        -- input_sync = q_input_sync_dly
-        -- ) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly))
-        -- report "`o_output` not set when `i_input` is stable for `PERIOD` clock cycles"
-        -- severity error;
-
-        end block psl_block;
-
-    end generate gen_simulation;
 
 end architecture rtl;

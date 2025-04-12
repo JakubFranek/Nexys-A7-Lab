@@ -25,7 +25,7 @@ begin
 
     inst_clk_ena : entity work.clock_enable_generator
         generic map (
-            PERIOD => PERIOD_CLK_ENA, SIMULATION => true
+            PERIOD => PERIOD_CLK_ENA
         )
         port map (
             i_clk     => clk,
@@ -34,7 +34,7 @@ begin
 
     inst_uut : entity work.debouncer
         generic map (
-            PERIOD => PERIOD_DEBOUNCE, SIMULATION => true
+            PERIOD => PERIOD_DEBOUNCE
         )
         port map (
             i_input   => input,

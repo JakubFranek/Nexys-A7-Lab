@@ -27,10 +27,10 @@ when `i_input` changes (this is why the counter final value is `PERIOD` and not 
 
 ## Generics
 
-| Generic name | Type    | Value | Description                                                        |
-| ------------ | ------- | ----- | ------------------------------------------------------------------ |
-| PERIOD       | natural | 10    | number of `i_clk_ena` cycles during which `i_input` must be stable |
-| SIMULATION   | boolean | true  | generate simulation asserts                                        |
+| Generic name | Type                            | Value | Description                                                        |
+| ------------ | ------------------------------- | ----- | ------------------------------------------------------------------ |
+| PERIOD       | natural range 1 to natural'high | 10    | number of `i_clk_ena` cycles during which `i_input` must be stable |
+| SIMULATION   | boolean                         | true  | generate simulation asserts                                        |
 
 ## Ports
 
@@ -66,23 +66,22 @@ when `i_input` changes (this is why the counter final value is `PERIOD` and not 
 
 | Label | Condition | File |
 |-----------|-----------|-----|
-| cover_output_toggle | {(o_output = '0')[+]; (o_output = '1')[+]; (o_output = '0')[+]}; | .vhd |
-| cover_input_toggle | {(i_input = '0'); (i_input = '1'); (i_input = '0'); (i_input = '1')[*2 to inf]; (o_output = '1')}; | .vhd |
+| cover_output_toggle | (o_output = '0')[+]; (o_output = '1')[+]; (o_output = '0')[+] | .psl |
+| cover_input_toggle | (i_input = '0'); (i_input = '1'); (i_input = '0'); (i_input = '1')[*2 to inf]; (o_output = '1') | .psl |
 
 ## Assumptions
 
 | Condition | File |
 |-----------|-----|
-| always (i_clk_ena = '1' -> next i_clk_ena = '0') | .vhd |
+| (always (i_clk_ena -> next not i_clk_ena)) | .psl |
 
 ## Assertions
 
-| Label | Condition | Report | Severity | File |
-|-------|-----------|--------|----------| -----|
-| counter_max_min_value | PERIOD > 1 | `PERIOD` must be larger than 1 | error | .vhd |
-| q_counter_resets_on_input_change | always (input_sync /= q_input_sync_dly) -> next (q_counter = 0) | `q_counter` not reset when `i_input` changes | error | .vhd |
-| q_counter_resets_after_period | always (q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena = '1' and input_sync = q_input_sync_dly) -> next (q_counter = 0) | `q_counter` not reset after achieving value `PERIOD` | error | .vhd |
-| o_output_updates_value | always ( q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena = '1' and input_sync = q_input_sync_dly ) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly) | `o_output` not set when `i_input` is stable for `PERIOD` clock cycles | error | .vhd |
-| counter_stable_without_clk_ena | always ((i_clk_ena = '0' and input_sync = q_input_sync_dly) -> next (stable(q_counter))) |  |  | .psl |
-| counter_increments_when_input_stable | always ((input_sync = q_input_sync_dly and i_clk_ena = '1' and q_counter /= to_unsigned(PERIOD, COUNTER_WIDTH))                    -> next (q_counter = prev(q_counter) + 1)) |  |  | .psl |
-| o_output_stable_before_period | always (q_counter /= to_unsigned(PERIOD, COUNTER_WIDTH) -> next (stable(o_output))) |  |  | .psl |
+| Label | Condition |
+|-------|-----------|
+| counter_stable_disabled | always ((not i_clk_ena and input_sync = q_input_sync_dly) -> next (stable(q_counter))) |
+| counter_increments_when_input_stable | always ((input_sync = q_input_sync_dly and i_clk_ena and q_counter /= to_unsigned(PERIOD, COUNTER_WIDTH))                    -> next (q_counter = prev(q_counter) + 1)) |
+| output_stable_before_period | always (q_counter /= to_unsigned(PERIOD, COUNTER_WIDTH) -> next (stable(o_output))) |
+| q_counter_resets_on_input_change | always (input_sync /= q_input_sync_dly -> next (q_counter = 0)) |
+| q_counter_resets_after_period | always (        q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena and input_sync = q_input_sync_dly    ) -> next (q_counter = 0) |
+| o_output_updates_value | always (        q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena and input_sync = q_input_sync_dly    ) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly) |

@@ -2,7 +2,17 @@ vunit clock_enable_generator_psl (clock_enable_generator(rtl)) {
 
     default clock is rising_edge(i_clk);
 
+    -- Assertions
     q_counter_increment :
-    assert always (q_counter < PERIOD - 1) -> next (q_counter = prev(q_counter) + 1);
+    assert always (q_counter < (PERIOD - 1)) -> next (q_counter = prev(q_counter) + 1);
+
+    o_clk_ena_period :
+    assert always (q_counter = (PERIOD - 1)) -> next (o_clk_ena);
+
+    q_counter_reset :
+    assert always (q_counter = (PERIOD - 1)) -> next (q_counter = 0);
+
+    o_clk_ena_one_cycle :
+    assert always (o_clk_ena) -> next (not o_clk_ena);
 
 }

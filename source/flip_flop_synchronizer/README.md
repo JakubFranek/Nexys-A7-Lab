@@ -19,10 +19,9 @@ The initial value of output `o_sync` is '0'.
 
 ## Generics
 
-| Generic name | Type    | Value | Description                                 |
-| ------------ | ------- | ----- | ------------------------------------------- |
-| STAGES       | natural | 2     | number of chained flip-flops                |
-| SIMULATION   | boolean | true  | generate logic needed for assert evaluation |
+| Generic name | Type                            | Value | Description                  |
+| ------------ | ------------------------------- | ----- | ---------------------------- |
+| STAGES       | natural range 2 to natural'high | 2     | number of chained flip-flops |
 
 ## Ports
 
@@ -40,9 +39,3 @@ The initial value of output `o_sync` is '0'.
 
 ## Processes
 - proc_sync: ( i_clk )
-
-## Assertions
-
-| Label | Condition | Report | Severity | File |
-|-------|-----------|--------|----------| -----|
-| stages_min_value | STAGES > 1 | `STAGES` must be larger than 1 | error | .vhd |

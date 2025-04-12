@@ -4,9 +4,9 @@
 
 ------------------------------------------------------------
 --! { signal: [
---!  { name: "i_clk",  wave: "P........." },
---!  { name: "q_counter",  wave: "==========", data: [0,1,2,3,0,1,2,3,0,1] },
---!  { name: "o_clk_ena", wave: "0...10..10" }
+--!  { name: "i_clk",       wave: "P........." },
+--!  { name: "q_counter",   wave: "==========", data: [0,1,2,3,0,1,2,3,0,1] },
+--!  { name: "o_clk_ena",   wave: "0...10..10" }
 --! ],
 --!  head:{
 --!     text:'Time diagram (for PERIOD = 4)',
@@ -24,8 +24,8 @@ library ieee;
 
 entity clock_enable_generator is
     generic (
-        PERIOD     : natural := 10;  --! number of clock cycles required to generate a single clock enable pulse
-        SIMULATION : boolean := true --! generate simulation asserts
+        --! number of clock cycles required to generate a single clock enable pulse
+        PERIOD : natural range 1 to natural'high := 10
     );
     port (
         i_clk     : in    std_logic;       --! input clock
@@ -47,7 +47,7 @@ begin
     begin
 
         if rising_edge(i_clk) then
-            if (q_counter = to_unsigned(PERIOD - 1, COUNTER_WIDTH)) then
+            if (q_counter = (PERIOD - 1)) then
                 q_counter <= (others => '0');
                 o_clk_ena <= '1';
             else
@@ -57,37 +57,5 @@ begin
         end if;
 
     end process proc_clk_ena;
-
-    gen_simulation : if SIMULATION generate
-
-        psl_block : block is
-
-        -- psl default clock is rising_edge(i_clk);
-
-        begin
-
-            counter_max_min_value:
-            assert (PERIOD > 1)
-                report "`PERIOD` must be larger than 1"
-                severity error;
-
-        -- psl o_clk_ena_period :
-        -- assert (always {q_counter = PERIOD - 1} |=> {o_clk_ena = '1'})
-        -- report "`o_clk_ena` not activated in the next clock cycle after `q_counter` reaches `PERIOD` - 1"
-        -- severity error;
-
-        -- psl q_counter_reset :
-        -- assert (always {q_counter = PERIOD - 1} |=> {q_counter = 0})
-        -- report "`q_counter` not reset in the next clock cycle after reaching `PERIOD` - 1"
-        -- severity error;
-
-        -- psl o_clk_ena_one_cycle :
-        -- assert (always {o_clk_ena = '1'} |=> {o_clk_ena = '0'})
-        -- report "`o_clk_ena` pulse is longer than one clock cycle"
-        -- severity error;
-
-        end block psl_block;
-
-    end generate gen_simulation;
 
 end architecture rtl;

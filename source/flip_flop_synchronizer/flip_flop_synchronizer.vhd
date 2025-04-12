@@ -4,9 +4,9 @@
 
 ------------------------------------------------------------
 --! { signal: [
---!  { name: "i_clk",  wave: "P....", period:2 },
---!  { name: "i_async",  wave: "01...0...." },
---!  { name: "o_sync", wave: "0...1...0." }
+--!  { name: "i_clk",   wave: "P.........", period:2 },
+--!  { name: "i_async", wave: "01...0...." },
+--!  { name: "o_sync",  wave: "0...1...0." }
 --! ],
 --!  head:{
 --!     text:'Time diagram (for STAGES = 2)',
@@ -21,7 +21,7 @@ library ieee;
 
 entity flip_flop_synchronizer is
     generic (
-        STAGES : natural := 2 --! number of chained flip-flops
+        STAGES : natural range 2 to natural'high := 2 --! number of chained flip-flops
     );
     port (
         i_clk   : in    std_logic; --! input clock
@@ -47,10 +47,5 @@ begin
         end if;
 
     end process proc_sync;
-
-    stages_min_value:
-    assert (STAGES > 1)
-        report "`STAGES` must be larger than 1"
-        severity error;
 
 end architecture rtl;

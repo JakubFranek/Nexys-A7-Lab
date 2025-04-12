@@ -41,11 +41,11 @@ def extract_asserts_from_psl(psl_code: str) -> list[list[str]]:
 
 
 def generate_markdown_table(asserts: list[list[str]]) -> str:
-    markdown = "| Label | Condition | Report | Severity | File |\n"
-    markdown += "|-------|-----------|--------|----------| -----|\n"
+    markdown = "| Label | Condition |\n"
+    markdown += "|-------|-----------|\n"
 
-    for label, condition, report, severity, file in asserts:
-        markdown += f"| {label} | {condition} | {report} | {severity} | {file} |\n"
+    for label, condition, _, _, _ in asserts:
+        markdown += f"| {label} | {condition} |\n"
 
     return markdown
 

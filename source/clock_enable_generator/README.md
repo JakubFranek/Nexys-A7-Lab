@@ -19,10 +19,10 @@ The initial value of output `o_clk_ena` is '0'.
 
 ## Generics
 
-| Generic name | Type    | Value | Description                                                             |
-| ------------ | ------- | ----- | ----------------------------------------------------------------------- |
-| PERIOD       | natural | 10    | number of clock cycles required to generate a single clock enable pulse |
-| SIMULATION   | boolean | true  | generate simulation asserts                                             |
+| Generic name | Type                            | Value | Description                                                             |
+| ------------ | ------------------------------- | ----- | ----------------------------------------------------------------------- |
+| PERIOD       | natural range 1 to natural'high | 10    | number of clock cycles required to generate a single clock enable pulse |
+| SIMULATION   | boolean                         | true  | generate simulation asserts                                             |
 
 ## Ports
 
@@ -48,10 +48,9 @@ The initial value of output `o_clk_ena` is '0'.
 
 ## Assertions
 
-| Label | Condition | Report | Severity | File |
-|-------|-----------|--------|----------| -----|
-| counter_max_min_value | PERIOD > 1 | `PERIOD` must be larger than 1 | error | .vhd |
-| o_clk_ena_period | always {q_counter = PERIOD - 1} &#124;=> {o_clk_ena = '1'} | `o_clk_ena` not activated in the next clock cycle after `q_counter` reaches `PERIOD` - 1 | error | .vhd |
-| q_counter_reset | always {q_counter = PERIOD - 1} &#124;=> {q_counter = 0} | `q_counter` not reset in the next clock cycle after reaching `PERIOD` - 1 | error | .vhd |
-| o_clk_ena_one_cycle | always {o_clk_ena = '1'} &#124;=> {o_clk_ena = '0'} | `o_clk_ena` pulse is longer than one clock cycle | error | .vhd |
-| q_counter_increment | always (q_counter < PERIOD - 1) -> next (q_counter = prev(q_counter) + 1) |  |  | .psl |
+| Label | Condition |
+|-------|-----------|
+| q_counter_increment | always (q_counter < PERIOD - 1) -> next (q_counter = prev(q_counter) + 1) |
+| o_clk_ena_period | always (q_counter = PERIOD - 1) -> next (o_clk_ena) |
+| q_counter_reset | always (q_counter = PERIOD - 1) -> next (q_counter = 0) |
+| o_clk_ena_one_cycle | always (o_clk_ena) -> next (not o_clk_ena) |

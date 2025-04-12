@@ -21,7 +21,7 @@ begin
 
     inst_uut : entity work.clock_enable_generator
         generic map (
-            PERIOD => PERIOD, SIMULATION => true
+            PERIOD => PERIOD
         )
         port map (
             i_clk     => clk,

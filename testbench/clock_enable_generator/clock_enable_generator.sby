@@ -18,7 +18,7 @@ cover: append 1
 smtbmc z3
 
 [script]
-ghdl -gPERIOD=10 -gSIMULATION=true -fpsl --std=08 clock_enable_generator.vhd clock_enable_generator.psl -e clock_enable_generator
+ghdl -gPERIOD=10 -fpsl --std=08 clock_enable_generator.vhd clock_enable_generator.psl -e clock_enable_generator
 prep -top clock_enable_generator
 chformal -assert -remove */*_note
 chformal -assert -remove */*_warning
