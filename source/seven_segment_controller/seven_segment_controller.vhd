@@ -7,10 +7,9 @@ library ieee;
 
 entity seven_segment_controller is
     generic (
-        DIGITS               : natural := 8;     --! number of digits
-        SEGMENTS_ACTIVE_HIGH : boolean := false; --! active level of segments
-        ANODES_ACTIVE_HIGH   : boolean := false; --! active level of anodes
-        SIMULATION           : boolean := true   --! generate simulation asserts
+        DIGITS                : natural              := 8; --! number of digits
+        SEGMENTS_ACTIVE_LEVEL : natural range 0 to 1 := 0; --! active level of segments (0 or 1)
+        DIGIT_ACTIVE_LEVEL    : natural range 0 to 1 := 0  --! active level of anodes (0 or 1)
     );
     port (
         --! input clock
@@ -19,7 +18,7 @@ entity seven_segment_controller is
         i_clk_ena : in    std_logic;
         --! array of digit records
         i_digits : in    t_digit_array(DIGITS - 1 downto 0);
-        --! output segments (CA to CG + DP)
+        --! output segments (7: CA, ..., 1: CG, 0: DP)
         o_segments : out   std_logic_vector(7 downto 0);
         --! output digit common anodes
         o_digit_enable : out   std_logic_vector(DIGITS - 1 downto 0)
@@ -30,6 +29,7 @@ architecture rtl of seven_segment_controller is
 
     type t_segment_array is array (natural range <>) of std_logic_vector(6 downto 0);
 
+    --! array of predefined segment patterns, assumes active level is '1'
     constant SEGMENTS_ARRAY : t_segment_array(0 to 15) :=
     (
         "1111110", -- 0
@@ -50,9 +50,12 @@ architecture rtl of seven_segment_controller is
         "1000111"  -- F
     );
 
-    constant COUNTER_WIDTH : natural                              := natural(ceil(log2(real(DIGITS))));
-    signal   q_counter     : unsigned(COUNTER_WIDTH - 1 downto 0) := (others => '0');
-    signal   segments      : std_logic_vector(7 downto 0);
+    --! counter width required to fit `DIGITS`
+    constant COUNTER_WIDTH : natural := natural(ceil(log2(real(DIGITS))));
+    --! internal counter
+    signal q_counter : unsigned(COUNTER_WIDTH - 1 downto 0) := (others => '0');
+    --! intermediary signal for controlling individual segments
+    signal segments : std_logic_vector(7 downto 0);
 
 begin
 
@@ -72,17 +75,17 @@ begin
     end process proc_clk;
 
     gen_block : for i in 0 to DIGITS - 1 generate
-        o_digit_enable(i) <= '1' when (i = to_integer(q_counter) and ANODES_ACTIVE_HIGH) or
-                                      (i /= to_integer(q_counter) and not ANODES_ACTIVE_HIGH) else
+        o_digit_enable(i) <= '1' when (i = q_counter and DIGIT_ACTIVE_LEVEL = 1) or
+                                      (i /= q_counter and DIGIT_ACTIVE_LEVEL = 0) else
                              '0';
     end generate gen_block;
 
-    segments(7 downto 1) <= SEGMENTS_ARRAY(to_integer(q_counter));
+    segments(7 downto 1) <= SEGMENTS_ARRAY(to_integer(i_digits(to_integer(q_counter)).value));
 
     segments(0) <= '1' when i_digits(to_integer(q_counter)).decimal_point = '1' else
                    '0';
 
-    o_segments <= segments when SEGMENTS_ACTIVE_HIGH = true else
+    o_segments <= segments when SEGMENTS_ACTIVE_LEVEL = 1 else
                   not segments;
 
 end architecture rtl;
