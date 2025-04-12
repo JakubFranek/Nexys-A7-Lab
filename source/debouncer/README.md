@@ -73,15 +73,15 @@ when `i_input` changes (this is why the counter final value is `PERIOD` and not 
 
 | Condition | File |
 |-----------|-----|
-| (always (i_clk_ena -> next not i_clk_ena)) | .psl |
+| always (i_clk_ena) -> next (not i_clk_ena) | .psl |
 
 ## Assertions
 
 | Label | Condition |
 |-------|-----------|
-| counter_stable_disabled | always ((not i_clk_ena and input_sync = q_input_sync_dly) -> next (stable(q_counter))) |
-| counter_increments_when_input_stable | always ((input_sync = q_input_sync_dly and i_clk_ena and q_counter /= to_unsigned(PERIOD, COUNTER_WIDTH))                    -> next (q_counter = prev(q_counter) + 1)) |
-| output_stable_before_period | always (q_counter /= to_unsigned(PERIOD, COUNTER_WIDTH) -> next (stable(o_output))) |
-| q_counter_resets_on_input_change | always (input_sync /= q_input_sync_dly -> next (q_counter = 0)) |
-| q_counter_resets_after_period | always (        q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena and input_sync = q_input_sync_dly    ) -> next (q_counter = 0) |
-| o_output_updates_value | always (        q_counter = to_unsigned(PERIOD, COUNTER_WIDTH) and i_clk_ena and input_sync = q_input_sync_dly    ) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly) |
+| counter_stable_disabled | always (not i_clk_ena and input_sync = q_input_sync_dly) -> next (stable(q_counter)) |
+| counter_increments_when_input_stable | always (input_sync = q_input_sync_dly and i_clk_ena and q_counter /= PERIOD)-> next (q_counter = prev(q_counter) + 1) |
+| output_stable_before_period | always (q_counter /= PERIOD) -> next (stable(o_output)) |
+| q_counter_resets_on_input_change | always (input_sync /= q_input_sync_dly) -> next (q_counter = 0) |
+| q_counter_resets_after_period | always (q_counter = PERIOD and i_clk_ena and input_sync = q_input_sync_dly) -> next (q_counter = 0) |
+| o_output_updates_value | always (q_counter = PERIOD and i_clk_ena and input_sync = q_input_sync_dly) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly) |

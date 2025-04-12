@@ -33,6 +33,8 @@ def extract_asserts_from_psl(psl_code: str) -> list[list[str]]:
             .replace("|", "&#124;")
             .replace("\n", "")
         )
+        # If there are more than two spaces anywhere within condition, remove them
+        condition = re.sub(r"\s{2,}", "", condition)
         report = ""
         severity = ""
         asserts.append([label, condition, report, severity, ".psl"])

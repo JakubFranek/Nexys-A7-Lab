@@ -50,7 +50,7 @@ The initial value of output `o_clk_ena` is '0'.
 
 | Label | Condition |
 |-------|-----------|
-| q_counter_increment | always (q_counter < PERIOD - 1) -> next (q_counter = prev(q_counter) + 1) |
-| o_clk_ena_period | always (q_counter = PERIOD - 1) -> next (o_clk_ena) |
-| q_counter_reset | always (q_counter = PERIOD - 1) -> next (q_counter = 0) |
+| q_counter_increment | always (q_counter < (PERIOD - 1)) -> next (q_counter = prev(q_counter) + 1) |
+| o_clk_ena_period | always (q_counter = (PERIOD - 1)) -> next (o_clk_ena) |
+| q_counter_reset | always (q_counter = (PERIOD - 1)) -> next (q_counter = 0) |
 | o_clk_ena_one_cycle | always (o_clk_ena) -> next (not o_clk_ena) |

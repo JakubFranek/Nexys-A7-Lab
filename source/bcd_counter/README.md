@@ -39,15 +39,15 @@ BCD counter with generic number of decimal digits.
 
 | Label | Condition |
 |-------|-----------|
-| decimals_reset | (always i_reset -> next (o_decimals(0) = 0 and o_decimals(1) = 0)) |
-| decimals_max_value | (always (o_decimals(0) <= 9 and o_decimals(1) <= 9)) |
-| decimals_count_up | (always (not i_reset and i_enable and i_direction and count /= 99) -> next (count = prev(count) + 1)) |
-| decimals_count_up_overflow | (always (not i_reset and i_enable and i_direction and count = 99) -> next (count = 0)) |
-| decimals_count_down | (always (not i_reset and i_enable and not i_direction and count /= 0) -> next (count = prev(count) - 1)) |
-| decimals_count_down_overflow | (always (not i_reset and i_enable and not i_direction and count = 0) -> next (count = 99)) |
-| decimals_disabled | (always (not i_reset and not i_enable) -> next (count = prev(count))) |
-| overflow_reset | (always (i_reset) -> next (not o_overflow)) |
-| overflow_count_up | (always (not i_reset and i_enable and i_direction and count = 99) -> next (o_overflow)) |
-| overflow_count_up_inactive | (always (not i_reset and i_enable and i_direction and count /= 99) -> next (not o_overflow)) |
-| overflow_count_down | (always (not i_reset and i_enable and not i_direction and count = 0) -> next (o_overflow)) |
-| overflow_count_down_inactive | (always (not i_reset and i_enable and not i_direction and count /= 0) -> next (not o_overflow)) |
+| decimals_reset | always i_reset -> next (o_decimals(0) = 0 and o_decimals(1) = 0) |
+| decimals_max_value | always (o_decimals(0) <= 9 and o_decimals(1) <= 9) |
+| decimals_count_up | always (not i_reset and i_enable and i_direction and count /= 99) -> next (count = prev(count) + 1) |
+| decimals_count_up_overflow | always (not i_reset and i_enable and i_direction and count = 99) -> next (count = 0) |
+| decimals_count_down | always (not i_reset and i_enable and not i_direction and count /= 0) -> next (count = prev(count) - 1) |
+| decimals_count_down_overflow | always (not i_reset and i_enable and not i_direction and count = 0) -> next (count = 99) |
+| decimals_disabled | always (not i_reset and not i_enable) -> next (count = prev(count)) |
+| overflow_reset | always (i_reset) -> next (not o_overflow) |
+| overflow_count_up | always (not i_reset and i_enable and i_direction and count = 99) -> next (o_overflow) |
+| overflow_count_up_inactive | always (not i_reset and i_enable and i_direction and count /= 99) -> next (not o_overflow) |
+| overflow_count_down | always (not i_reset and i_enable and not i_direction and count = 0) -> next (o_overflow) |
+| overflow_count_down_inactive | always (not i_reset and i_enable and not i_direction and count /= 0) -> next (not o_overflow) |

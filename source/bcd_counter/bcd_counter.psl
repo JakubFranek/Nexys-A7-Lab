@@ -10,39 +10,39 @@ vunit bcd_counter_psl (bcd_counter(rtl)) {
 
     -- Assertions
     decimals_reset:
-    assert (always i_reset -> next (o_decimals(0) = 0 and o_decimals(1) = 0));
+    assert always i_reset -> next (o_decimals(0) = 0 and o_decimals(1) = 0);
 
     decimals_max_value:
-    assert (always (o_decimals(0) <= 9 and o_decimals(1) <= 9));
+    assert always (o_decimals(0) <= 9 and o_decimals(1) <= 9);
 
     decimals_count_up:
-    assert (always (not i_reset and i_enable and i_direction and count /= 99) -> next (count = prev(count) + 1));
+    assert always (not i_reset and i_enable and i_direction and count /= 99) -> next (count = prev(count) + 1);
 
     decimals_count_up_overflow:
-    assert (always (not i_reset and i_enable and i_direction and count = 99) -> next (count = 0));
+    assert always (not i_reset and i_enable and i_direction and count = 99) -> next (count = 0);
 
     decimals_count_down:
-    assert (always (not i_reset and i_enable and not i_direction and count /= 0) -> next (count = prev(count) - 1));
+    assert always (not i_reset and i_enable and not i_direction and count /= 0) -> next (count = prev(count) - 1);
 
     decimals_count_down_overflow:
-    assert (always (not i_reset and i_enable and not i_direction and count = 0) -> next (count = 99));
+    assert always (not i_reset and i_enable and not i_direction and count = 0) -> next (count = 99);
 
     decimals_disabled:
-    assert (always (not i_reset and not i_enable) -> next (count = prev(count)));
+    assert always (not i_reset and not i_enable) -> next (count = prev(count));
 
     overflow_reset:
-    assert (always (i_reset) -> next (not o_overflow));
+    assert always (i_reset) -> next (not o_overflow);
 
     overflow_count_up:
-    assert (always (not i_reset and i_enable and i_direction and count = 99) -> next (o_overflow));
+    assert always (not i_reset and i_enable and i_direction and count = 99) -> next (o_overflow);
 
     overflow_count_up_inactive:
-    assert (always (not i_reset and i_enable and i_direction and count /= 99) -> next (not o_overflow));
+    assert always (not i_reset and i_enable and i_direction and count /= 99) -> next (not o_overflow);
 
     overflow_count_down:
-    assert (always (not i_reset and i_enable and not i_direction and count = 0) -> next (o_overflow));
+    assert always (not i_reset and i_enable and not i_direction and count = 0) -> next (o_overflow);
 
     overflow_count_down_inactive:
-    assert (always (not i_reset and i_enable and not i_direction and count /= 0) -> next (not o_overflow));
+    assert always (not i_reset and i_enable and not i_direction and count /= 0) -> next (not o_overflow);
 
 }

@@ -10,21 +10,21 @@ vunit debouncer_psl (debouncer(rtl)) {
     cover {(i_input = '0'); (i_input = '1'); (i_input = '0'); (i_input = '1')[*2 to inf]; (o_output = '1')};
 
     -- Assumptions
-    assume (always (i_clk_ena -> next not i_clk_ena));    
+    assume always (i_clk_ena) -> next (not i_clk_ena);    
 
     -- Asserts
     counter_stable_disabled :
-    assert always ((not i_clk_ena and input_sync = q_input_sync_dly) -> next (stable(q_counter)));
+    assert always (not i_clk_ena and input_sync = q_input_sync_dly) -> next (stable(q_counter));
 
     counter_increments_when_input_stable :
-    assert always ((input_sync = q_input_sync_dly and i_clk_ena and q_counter /= PERIOD)
-                    -> next (q_counter = prev(q_counter) + 1));
+    assert always (input_sync = q_input_sync_dly and i_clk_ena and q_counter /= PERIOD)
+                    -> next (q_counter = prev(q_counter) + 1);
 
     output_stable_before_period :
-    assert always (q_counter /= PERIOD -> next (stable(o_output)));
+    assert always (q_counter /= PERIOD) -> next (stable(o_output));
 
     q_counter_resets_on_input_change :
-    assert always (input_sync /= q_input_sync_dly -> next (q_counter = 0));
+    assert always (input_sync /= q_input_sync_dly) -> next (q_counter = 0);
 
     q_counter_resets_after_period :
     assert always (
