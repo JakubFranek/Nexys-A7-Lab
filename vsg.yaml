@@ -19,6 +19,8 @@ rule:
         disable: false
     instantiation_601:      # This rule checks for valid prefixes on instantiation labels. The default prefix is inst_.
         disable: false
+    variable_007:           # This rule checks for default assignments in variable declarations.
+        disable: true
     constant_004:           # This rule checks the constant identifier has proper case.
         disable: false
         case: "upper"

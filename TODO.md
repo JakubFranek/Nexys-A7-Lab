@@ -32,8 +32,6 @@ This is a task list for this repository. This list is not exhaustive.
 
 ## To do
 
-- [ ] Create BCD counter
-
 - [ ] Create PWM controller
 
 - [ ] Test FSM diagram generation in TerosHDL
@@ -67,3 +65,8 @@ This is a task list for this repository. This list is not exhaustive.
 - [x] Document `assert` and `assume` statements	in `.psl` files as well
 - [x] Test multiple WaveDrom diagrams per VHDL file
 - [x] Edit PSL documenting scripts to skip cover/assume/assert sections if empty
+- [x] Create BCD counter
+  - [x] Create RTL
+  - [x] Add documentation and WaveDrom time diagram
+  - [x] Create VUnit testbench
+  - [x] Create PSL assertions

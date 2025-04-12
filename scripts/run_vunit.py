@@ -12,7 +12,7 @@ default_args = [
     "--viewer",
     "surfer",
     "--viewer-fmt",
-    "vcd",
+    "ghw",
 ]
 
 # Append actual command-line arguments, excluding the script name
@@ -22,6 +22,7 @@ vunit = VUnit.from_argv()
 vunit.add_vhdl_builtins()
 
 lib = vunit.add_library("lib")
+# lib.add_source_files("debug/**/*.vhd")
 lib.add_source_files("source/**/*.vhd")
 lib.add_source_files("testbench/**/*.vhd")
 

@@ -2,6 +2,7 @@
 .vscode
 
 simulation/
+debug/
 
 # Vivado ignores (keep just .xpr and the .srcs folder)
 vivado/**/*.cache/

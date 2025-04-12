@@ -10,6 +10,7 @@ SURFER_PATH = "D:/Programy/surfer/surfer.exe"
 TESTBENCH_DIRECTORY = "testbench"
 TEST_OUTPUT_DIRECTORY = "simulation/vunit_out/test_output/"
 MAPPING_FILE_PATH = TEST_OUTPUT_DIRECTORY + "test_name_to_path_mapping.txt"
+WAVE_FILE_EXTENSIONS = [".ghw", ".vcd"]
 
 
 def run_command(command, cwd=None):
@@ -85,7 +86,16 @@ if __name__ == "__main__":
     test_name, test_path = find_matching_test(pattern)
     state_file = find_state_file(test_name)
 
-    wave_file = Path(TEST_OUTPUT_DIRECTORY) / test_path / "ghdl" / "wave.vcd"
+    for extension in WAVE_FILE_EXTENSIONS:
+        wave_file = (
+            Path(TEST_OUTPUT_DIRECTORY) / test_path / "ghdl" / f"wave{extension}"
+        )
+        if wave_file.exists():
+            break
+
+    if not wave_file.exists():
+        print("No wave file found.")
+        sys.exit(1)
 
     if state_file:
         command = [SURFER_PATH, "-s", str(state_file), str(wave_file)]
