@@ -1,0 +1,30 @@
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc: mode bmc
+bmc: depth 20
+bmc: append 1
+prove: mode prove
+prove: depth 20
+prove: append 1
+cover: mode cover
+cover: depth 20
+cover: append 1
+
+[engines]
+smtbmc z3
+
+[script]
+ghdl -gDIGITS=4 -gDIGIT_ACTIVE_LEVEL='0' -gSEGMENT_ACTIVE_LEVEL='0' -fpsl --std=08 seven_segment_controller.vhd seven_segment_controller.psl digit_record_package.vhd -e seven_segment_controller
+prep -top seven_segment_controller
+chformal -assert -remove */*_note
+chformal -assert -remove */*_warning
+memory_map -rom-only
+
+[files]
+source/seven_segment_controller/seven_segment_controller.vhd
+source/seven_segment_controller/seven_segment_controller.psl
+source/seven_segment_controller/digit_record_package.vhd

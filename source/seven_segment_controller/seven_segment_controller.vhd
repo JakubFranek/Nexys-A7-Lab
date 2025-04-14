@@ -1,3 +1,27 @@
+--! Parametrized seven segment display controller.
+--!
+--! On Nexys A7 board, both cathodes (segments) and anodes (common)
+--! are active low.
+------------------------------------------------------------
+--! { signal: [
+--!  { name: "i_clk",               wave: "P..........." },
+--!  { name: "i_clk_ena",           wave: "010101010101" },
+--!  { name: ["tspan", {style: "fill:gray"}, "q_counter"],
+--!                                 wave: "=.=.=.=.=.=.", data: [0,1,2,3,0,1] },
+--!  { name: "o_segments(7:0)",     wave: "=.=.=.=.=.=.", data: ["D0", "D1", "D2", "D3", "D0", "D1"] },
+--!  { name: "o_digit_enable(0)",   wave: "0.1.....0.1."},
+--!  { name: "o_digit_enable(1)",   wave: "1.0.1.....0."},
+--!  { name: "o_digit_enable(2)",   wave: "1...0.1....."},
+--!  { name: "o_digit_enable(3)",   wave: "1.....0.1..."}
+--! ],
+--!  head:{
+--!     text:'Time diagram (for DIGITS = 4, DIGIT_ACTIVE_LEVEL = 0)',
+--!     tick:0,
+--!     every:1
+--!   },
+--! }
+------------------------------------------------------------
+
 library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
@@ -7,14 +31,14 @@ library ieee;
 
 entity seven_segment_controller is
     generic (
-        DIGITS                : natural              := 8; --! number of digits
-        SEGMENTS_ACTIVE_LEVEL : natural range 0 to 1 := 0; --! active level of segments (0 or 1)
-        DIGIT_ACTIVE_LEVEL    : natural range 0 to 1 := 0  --! active level of anodes (0 or 1)
+        DIGITS               : natural   := 2;   --! number of digits
+        SEGMENT_ACTIVE_LEVEL : std_logic := '0'; --! active level of segments
+        DIGIT_ACTIVE_LEVEL   : std_logic := '0'  --! active level of anodes
     );
     port (
         --! input clock
         i_clk : in    std_logic;
-        --! clock enable signal
+        --! clock enable signal, each digit is active for 1 `i_clk_ena` cycle
         i_clk_ena : in    std_logic;
         --! array of digit records
         i_digits : in    t_digit_array(DIGITS - 1 downto 0);
@@ -29,7 +53,7 @@ architecture rtl of seven_segment_controller is
 
     type t_segment_array is array (natural range <>) of std_logic_vector(6 downto 0);
 
-    --! array of predefined segment patterns, assumes active level is '1'
+    --! array of predefined segment patterns, assumes active level is '1', DP not included
     constant SEGMENTS_ARRAY : t_segment_array(0 to 15) :=
     (
         "1111110", -- 0
@@ -50,10 +74,8 @@ architecture rtl of seven_segment_controller is
         "1000111"  -- F
     );
 
-    --! counter width required to fit `DIGITS`
-    constant COUNTER_WIDTH : natural := natural(ceil(log2(real(DIGITS))));
     --! internal counter
-    signal q_counter : unsigned(COUNTER_WIDTH - 1 downto 0) := (others => '0');
+    signal q_counter : integer := 0;
     --! intermediary signal for controlling individual segments
     signal segments : std_logic_vector(7 downto 0);
 
@@ -64,8 +86,8 @@ begin
 
         if rising_edge(i_clk) then
             if (i_clk_ena = '1') then
-                if (q_counter = to_unsigned(DIGITS - 1, COUNTER_WIDTH)) then
-                    q_counter <= (others => '0');
+                if (q_counter = (DIGITS - 1)) then
+                    q_counter <= 0;
                 else
                     q_counter <= q_counter + 1;
                 end if;
@@ -74,19 +96,19 @@ begin
 
     end process proc_clk;
 
-    gen_block : for i in 0 to DIGITS - 1 generate
-        o_digit_enable(i) <= '1' when (i = q_counter and DIGIT_ACTIVE_LEVEL = 1) or
-                                      (i /= q_counter and DIGIT_ACTIVE_LEVEL = 0) else
-                             '0';
+    gen_block : for i in 0 to (DIGITS - 1) generate
+        o_digit_enable(i) <= DIGIT_ACTIVE_LEVEL when (i = q_counter) else
+                             not DIGIT_ACTIVE_LEVEL;
     end generate gen_block;
 
-    segments(7 downto 1) <= SEGMENTS_ARRAY(to_integer(i_digits(to_integer(q_counter)).value));
+    segments(7 downto 1) <= SEGMENTS_ARRAY(to_integer(i_digits(q_counter).value))
+                            when i_digits(q_counter).enable = '1' else
+                            (others => '0');
 
-    segments(0) <= '1' when i_digits(to_integer(q_counter)).decimal_point = '1' else
+    segments(0) <= i_digits(q_counter).decimal_point when i_digits(q_counter).enable = '1' else
                    '0';
 
-    o_segments <= segments when SEGMENTS_ACTIVE_LEVEL = 1 else
+    o_segments <= segments when SEGMENT_ACTIVE_LEVEL = '1' else
                   not segments;
 
 end architecture rtl;
-

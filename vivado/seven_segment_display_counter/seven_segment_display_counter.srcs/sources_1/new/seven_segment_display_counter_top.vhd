@@ -136,9 +136,9 @@ begin
 
     inst_seven_segment_controller : entity work.seven_segment_controller
         generic map (
-            DIGITS                => 8,
-            DIGIT_ACTIVE_LEVEL    => 0,
-            SEGMENTS_ACTIVE_LEVEL => 0
+            DIGITS               => 8,
+            DIGIT_ACTIVE_LEVEL   => '0',
+            SEGMENT_ACTIVE_LEVEL => '0'
         )
         port map (
             i_clk                  => clk_100meg_hz,

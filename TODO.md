@@ -19,12 +19,16 @@ This is a task list for this repository. This list is not exhaustive.
 
 - [ ] Create 7-segment display controller
   - [x] Create RTL
-  - [ ] Add documentation and WaveDrom time diagram
+  - [x] Add documentation and WaveDrom time diagram
   - [ ] Create VUnit testbench
-  - [ ] Create PSL assertions
+  - [x] Create PSL assertions
   - [x] Test on FPGA
 
 ## To do
+
+- [ ] Add script to run formal verification on all testbenches which have `.sby` files
+
+- [ ] Handle package documentation 
 
 - [ ] Create PWM controller
 

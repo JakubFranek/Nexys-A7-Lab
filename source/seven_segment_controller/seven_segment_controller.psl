@@ -1,0 +1,35 @@
+vunit seven_segment_controller_psl (seven_segment_controller(rtl)) {
+
+    -- Note: All properties are assuming `DIGITS` = 4
+
+    default clock is rising_edge(i_clk);
+
+    constant SEGMENTS_INACTIVE : std_logic_vector(7 downto 0) := (others => not SEGMENT_ACTIVE_LEVEL);
+
+    -- Assumptions
+    assume always i_clk_ena -> next not i_clk_ena;
+
+    -- Assertions
+    q_counter_increment:
+    assert always (i_clk_ena and q_counter /= (DIGITS - 1)) -> next (q_counter = prev(q_counter) + 1);
+
+    q_counter_overflow:
+    assert always (i_clk_ena and q_counter = (DIGITS - 1)) -> next (q_counter = 0);
+
+    o_digit_enable_active:
+    assert always (o_digit_enable(q_counter) = DIGIT_ACTIVE_LEVEL);
+
+    gen_assert: for i in 0 to 3 generate
+        o_digit_enable_inactive:
+        assert always (i /= q_counter) -> (o_digit_enable(i) = not DIGIT_ACTIVE_LEVEL);
+    end generate gen_assert;
+
+    o_segments_inactive:
+    assert always (not i_digits(q_counter).enable) -> (o_segments = SEGMENTS_INACTIVE);
+
+    o_segments_active:
+    assert always (i_digits(q_counter).enable) -> 
+        (segments(7 downto 1) = SEGMENTS_ARRAY(to_integer(i_digits(q_counter).value))
+        and segments(0) = i_digits(q_counter).decimal_point);
+
+}
