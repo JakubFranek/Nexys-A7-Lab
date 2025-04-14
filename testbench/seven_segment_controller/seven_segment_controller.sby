@@ -27,4 +27,4 @@ memory_map -rom-only
 [files]
 source/seven_segment_controller/seven_segment_controller.vhd
 source/seven_segment_controller/seven_segment_controller.psl
-source/seven_segment_controller/digit_record_package.vhd
+source/packages/digit_record_package.vhd

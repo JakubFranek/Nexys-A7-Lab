@@ -26,4 +26,4 @@ chformal -assert -remove */*_warning
 [files]
 source/bcd_counter/bcd_counter.vhd
 source/bcd_counter/bcd_counter.psl
-source/bcd_counter/bcd_array_package.vhd
+source/packages/bcd_array_package.vhd
