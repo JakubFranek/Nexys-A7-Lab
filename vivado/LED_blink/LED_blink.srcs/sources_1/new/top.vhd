@@ -47,8 +47,7 @@ begin
 
     inst_clk_ena_gen : entity work.clock_enable_generator
         generic map (
-            PERIOD     => 100000000,
-            SIMULATION => false
+            PERIOD => 100000000
         )
         port map (
             i_clk     => CLK_100M,

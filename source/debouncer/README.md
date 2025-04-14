@@ -64,23 +64,23 @@ when `i_input` changes (this is why the counter final value is `PERIOD` and not 
 
 ## Covers
 
-| Label | Condition | File |
-|-----------|-----------|-----|
-| cover_output_toggle | (o_output = '0')[+]; (o_output = '1')[+]; (o_output = '0')[+] | .psl |
-| cover_input_toggle | (i_input = '0'); (i_input = '1'); (i_input = '0'); (i_input = '1')[*2 to inf]; (o_output = '1') | .psl |
+| Label | Condition |
+|-----------|-----------|
+| cover_output_toggle | (o_output = '0')[+]; (o_output = '1')[+]; (o_output = '0')[+] |
+| cover_input_toggle | (i_input = '0'); (i_input = '1'); (i_input = '0'); (i_input = '1')[*2 to inf]; (o_output = '1') |
 
 ## Assumptions
 
-| Condition | File |
-|-----------|-----|
-| always (i_clk_ena) -> next (not i_clk_ena) | .psl |
+| Condition |
+|-----------|
+| always (i_clk_ena) -> next (not i_clk_ena) |
 
 ## Assertions
 
 | Label | Condition |
 |-------|-----------|
 | counter_stable_disabled | always (not i_clk_ena and input_sync = q_input_sync_dly) -> next (stable(q_counter)) |
-| counter_increments_when_input_stable | always (input_sync = q_input_sync_dly and i_clk_ena and q_counter /= PERIOD)-> next (q_counter = prev(q_counter) + 1) |
+| counter_increments_when_input_stable | always (input_sync = q_input_sync_dly and i_clk_ena and q_counter /= PERIOD) -> next (q_counter = prev(q_counter) + 1) |
 | output_stable_before_period | always (q_counter /= PERIOD) -> next (stable(o_output)) |
 | q_counter_resets_on_input_change | always (input_sync /= q_input_sync_dly) -> next (q_counter = 0) |
 | q_counter_resets_after_period | always (q_counter = PERIOD and i_clk_ena and input_sync = q_input_sync_dly) -> next (q_counter = 0) |

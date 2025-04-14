@@ -40,11 +40,11 @@ def extract_covers_from_psl(psl_code: str) -> list[list[str]]:
 
 
 def generate_markdown_table(covers: list[list[str]]) -> str:
-    markdown = "| Label | Condition | File |\n"
-    markdown += "|-----------|-----------|-----|\n"
+    markdown = "| Label | Condition |\n"
+    markdown += "|-----------|-----------|\n"
 
-    for label, condition, file in covers:
-        markdown += f"| {label} | {condition} | {file} |\n"
+    for label, condition, _ in covers:
+        markdown += f"| {label} | {condition} |\n"
 
     return markdown
 

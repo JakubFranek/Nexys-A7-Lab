@@ -12,6 +12,9 @@ This is a list of known limitations of the tools that are used in this repositor
   - this means any failing assert regardless of severity level causes formal verification to fail
   - [see issue](https://github.com/YosysHQ/sby/issues/318)
   - workaround is to remove asserts which have labels that end with `*/*_note` and `*/*_warning` (i.e. filter asserts based on their labels) in the `.sby` file via `chformal -assert [-remove|-assert2assume] */*_note` in the `[script]` section
+- running `prove` mode on circuits containing ROMs can produce false errors ([see issue](https://github.com/YosysHQ/yosys/issues/3378))
+  - this is because K-induction assumes ROM is initialized with random data
+  - workaround is to add `memory_map -rom-only` to the `[script]` section, which will turn ROM to static logic
 
 ## VHDL-LS
 - PSL statements are not supported

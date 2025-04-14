@@ -31,11 +31,11 @@ def extract_assumptions_from_psl(psl_code: str) -> list[list[str]]:
 
 
 def generate_markdown_table(assumes: list[list[str]]) -> str:
-    markdown = "| Condition | File |\n"
-    markdown += "|-----------|-----|\n"
+    markdown = "| Condition |\n"
+    markdown += "|-----------|\n"
 
-    for condition, file in assumes:
-        markdown += f"| {condition} | {file} |\n"
+    for condition, _ in assumes:
+        markdown += f"| {condition} |\n"
 
     return markdown
 

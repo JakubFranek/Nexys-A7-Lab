@@ -27,13 +27,11 @@ vunit debouncer_psl (debouncer(rtl)) {
     assert always (input_sync /= q_input_sync_dly) -> next (q_counter = 0);
 
     q_counter_resets_after_period :
-    assert always (
-        q_counter = PERIOD and i_clk_ena and input_sync = q_input_sync_dly
-    ) -> next (q_counter = 0);
+    assert always (q_counter = PERIOD and i_clk_ena and input_sync = q_input_sync_dly)
+                    -> next (q_counter = 0);
 
     o_output_updates_value :
-    assert always (
-        q_counter = PERIOD and i_clk_ena and input_sync = q_input_sync_dly
-    ) -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly);
+    assert always (q_counter = PERIOD and i_clk_ena and input_sync = q_input_sync_dly)
+                     -> next (o_output = input_sync) abort (input_sync /= q_input_sync_dly);
 
 }
