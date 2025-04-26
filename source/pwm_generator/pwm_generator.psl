@@ -1,0 +1,37 @@
+vunit pwm_generator_psl (pwm_generator(rtl)) {
+
+    default clock is rising_edge(i_clk);
+
+    -- Covers
+    cover_output_toggle :
+    cover {(o_pwm = '0')[+]; (o_pwm = '1')[+]; (o_pwm = '0')[+]};
+
+    -- Assumptions
+    assume always (i_clk_ena) -> next (not i_clk_ena);
+
+    -- Asserts
+    o_pwm_reset:
+    assert always (i_reset) -> next (o_pwm = not POLARITY);
+
+    q_counter_reset:
+    assert always (i_reset) -> next (q_counter = 0);
+
+    q_duty_reset:
+    assert always (i_reset) -> next (q_duty = prev(i_duty));
+
+    q_counter_increment:
+    assert always (i_clk_ena and not i_reset and q_counter < COUNTER_MAX) -> next (q_counter = prev(q_counter) + 1)
+                    abort (i_reset);
+
+    q_counter_overflow:
+    assert always (i_clk_ena and not i_reset and q_counter = COUNTER_MAX) -> next (q_counter = 0);
+
+    q_duty_update:
+    assert always (i_clk_ena and not i_reset and q_counter = COUNTER_MAX) -> next (q_duty = prev(i_duty));
+
+    o_pwm_active:
+    assert always (i_clk_ena and not i_reset and q_duty > 0 and q_counter < (q_duty - 1) and q_counter /= COUNTER_MAX) -> next (o_pwm = POLARITY) abort (i_reset);
+
+    o_pwm_inactive:
+    assert always (i_clk_ena and not i_reset and q_counter >= q_duty and q_counter /= COUNTER_MAX) -> next (o_pwm = not POLARITY) abort (i_reset);
+}

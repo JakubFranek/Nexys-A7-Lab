@@ -17,12 +17,16 @@ This is a task list for this repository. This list is not exhaustive.
   - [ ] Study check library
   - [ ] Study run library
 
+- [ ] Create PWM controller
+  - [x] Create RTL
+  - [ ] Add documentation and WaveDrom time diagram
+  - [ ] Create VUnit testbench
+  - [x] Create PSL assertions
+  - [ ] Test on FPGA
 
 ## To do
 
 - [ ] Handle package documentation 
-
-- [ ] Create PWM controller
 
 - [ ] Test FSM diagram generation in TerosHDL
 

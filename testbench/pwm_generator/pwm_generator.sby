@@ -1,0 +1,29 @@
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc: mode bmc
+bmc: depth 20
+bmc: append 1
+prove: mode prove
+prove: depth 20
+prove: append 1
+cover: mode cover
+cover: depth 20
+cover: append 1
+
+[engines]
+smtbmc z3
+
+[script]
+ghdl -gRESOLUTION=2 -gPOLARITY='1' -fpsl --std=08 pwm_generator.vhd pwm_generator.psl -e pwm_generator
+prep -top pwm_generator
+chformal -assert -remove */*_note
+chformal -assert -remove */*_warning
+memory_map -rom-only
+
+[files]
+source/pwm_generator/pwm_generator.vhd
+source/pwm_generator/pwm_generator.psl
