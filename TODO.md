@@ -17,16 +17,8 @@ This is a task list for this repository. This list is not exhaustive.
   - [ ] Study check library
   - [ ] Study run library
 
-- [ ] Create 7-segment display controller
-  - [x] Create RTL
-  - [x] Add documentation and WaveDrom time diagram
-  - [ ] Create VUnit testbench
-  - [x] Create PSL assertions
-  - [x] Test on FPGA
 
 ## To do
-
-- [ ] Add script to run formal verification on all testbenches which have `.sby` files
 
 - [ ] Handle package documentation 
 
@@ -70,6 +62,13 @@ This is a task list for this repository. This list is not exhaustive.
   - [x] Create PSL assertions
 - [x] Create parametrized debouncer
   - [x] Create RTL
+  - [x] Create VUnit testbench
+  - [x] Create PSL assertions
+  - [x] Test on FPGA|
+- [x] Add script to run formal verification on all testbenches which have `.sby` files
+- [x] Create 7-segment display controller
+  - [x] Create RTL
+  - [x] Add documentation and WaveDrom time diagram
   - [x] Create VUnit testbench
   - [x] Create PSL assertions
   - [x] Test on FPGA
