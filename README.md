@@ -28,9 +28,9 @@ TODO.dm        # Project task list
 - [ ] VGA controller
 - [ ] PS/2 mouse controller
 - [ ] PS/2 keyboard controller
+- [ ] ADXL362 accelerometer SPI master
 - [ ] UART controller
 - [ ] ADT7420 temperature sensor I2C master
-- [ ] ADXL362 accelerometer SPI master
 - [ ] ADMP421 microphone PDM demodulator
 - [ ] Quad-SPI Flash memory controller
 - [ ] DDR2 memory controller

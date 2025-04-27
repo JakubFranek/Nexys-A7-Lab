@@ -41,6 +41,11 @@ def generate_markdown_table(assumes: list[list[str]]) -> str:
 
 
 def document_assumptions(directory: Path) -> None:
+    if not (directory / f"{directory.name}.vhd").exists():
+        print(
+            f"WARNING: {directory}/{directory.name}.vhd does not exist. Skipping it..."
+        )
+        return
     with open(f"{directory}/{directory.name}.vhd", "r") as file:
         vhdl_code = file.readlines()
 

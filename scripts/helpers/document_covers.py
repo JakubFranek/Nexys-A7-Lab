@@ -50,6 +50,11 @@ def generate_markdown_table(covers: list[list[str]]) -> str:
 
 
 def document_covers(directory: Path) -> None:
+    if not (directory / f"{directory.name}.vhd").exists():
+        print(
+            f"WARNING: {directory}/{directory.name}.vhd does not exist. Skipping it..."
+        )
+        return
     with open(f"{directory}/{directory.name}.vhd", "r") as file:
         vhdl_code = file.readlines()
 

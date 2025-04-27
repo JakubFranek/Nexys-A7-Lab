@@ -20,7 +20,7 @@ This is a task list for this repository. This list is not exhaustive.
 - [ ] Create PWM controller
   - [x] Create RTL
   - [ ] Add documentation and WaveDrom time diagram
-  - [ ] Create VUnit testbench
+  - [x] Create VUnit testbench
   - [x] Create PSL assertions
   - [ ] Test on FPGA
 
