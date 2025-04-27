@@ -64,27 +64,23 @@ begin
                 o_pwm     <= not POLARITY;
                 q_counter <= (others => '0');
                 q_duty    <= i_duty;
-            else
-                if (i_clk_ena = '1') then
-                    if (q_counter = COUNTER_MAX) then
-                        q_counter <= (others => '0');
-                        q_duty    <= i_duty; -- register `i_duty`
-                    else
-                        q_counter <= q_counter + 1;
-                    end if;
+            elsif (i_clk_ena = '1') then
+                if (q_counter = COUNTER_MAX) then
+                    q_counter <= (others => '0');
+                    q_duty    <= i_duty; -- register `i_duty` at the end of PWM period
+                else
+                    q_counter <= q_counter + 1;
+                end if;
 
-                    if (q_counter = COUNTER_MAX) then
-                        -- first phase output initialization
-                        o_pwm <= POLARITY when i_duty /= 0 else not POLARITY;
-                    else
-                        if (q_counter < q_duty - 1 and q_duty /= 0) then
-                            -- still in first phase of PWM waveform
-                            o_pwm <= POLARITY;
-                        else
-                            -- second phase of PWM waveform
-                            o_pwm <= not POLARITY;
-                        end if;
-                    end if;
+                if (q_counter = COUNTER_MAX) then
+                    -- first phase PWM waveform initialization
+                    o_pwm <= POLARITY when i_duty /= 0 else not POLARITY;
+                elsif (q_counter < q_duty - 1 and q_duty /= 0) then
+                    -- still in first phase of PWM waveform
+                    o_pwm <= POLARITY;
+                else
+                    -- second phase of PWM waveform
+                    o_pwm <= not POLARITY;
                 end if;
             end if;
         end if;

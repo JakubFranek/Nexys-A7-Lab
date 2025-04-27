@@ -1,0 +1,39 @@
+vunit counter_psl (counter(rtl)) {
+
+    default clock is rising_edge(i_clk);
+
+    -- Assertions
+    count_reset:
+    assert always i_reset -> next (o_count = 0);
+
+    count_up:
+    assert always (not i_reset and i_enable and i_direction and o_count /= COUNTER_MAX) -> next (o_count = prev(o_count) + 1);
+
+    count_up_overflow:
+    assert always (not i_reset and i_enable and i_direction and o_count = COUNTER_MAX) -> next (o_count = 0);
+
+    count_down:
+    assert always (not i_reset and i_enable and not i_direction and o_count /= 0) -> next (o_count = prev(o_count) - 1);
+
+    count_down_overflow:
+    assert always (not i_reset and i_enable and not i_direction and o_count = 0) -> next (o_count = COUNTER_MAX);
+
+    count_disabled:
+    assert always (not i_reset and not i_enable) -> next (o_count = prev(o_count));
+
+    overflow_reset:
+    assert always (i_reset) -> next (not o_overflow);
+
+    overflow_count_up:
+    assert always (not i_reset and i_enable and i_direction and o_count = COUNTER_MAX) -> next (o_overflow);
+
+    overflow_count_up_inactive:
+    assert always (not i_reset and i_enable and i_direction and o_count /= COUNTER_MAX) -> next (not o_overflow);
+
+    overflow_count_down:
+    assert always (not i_reset and i_enable and not i_direction and o_count = 0) -> next (o_overflow);
+
+    overflow_count_down_inactive:
+    assert always (not i_reset and i_enable and not i_direction and o_count /= 0) -> next (not o_overflow);
+
+}
