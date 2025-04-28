@@ -7,7 +7,9 @@ library ieee;
 entity counter is
     generic (
         --! number of decimal digits
-        WIDTH : natural range 1 to natural'high := 4
+        WIDTH : natural range 1 to natural'high := 4;
+        --! maximum value of counter
+        COUNTER_MAX : natural := 2 ** WIDTH - 1
     );
     port (
         --! input clock
@@ -26,9 +28,6 @@ entity counter is
 end entity counter;
 
 architecture rtl of counter is
-
-    --! maximum value of counter
-    constant COUNTER_MAX : natural := 2 ** o_count'length - 1;
 
 begin
 

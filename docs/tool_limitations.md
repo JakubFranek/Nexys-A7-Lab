@@ -43,3 +43,4 @@ This is a list of known limitations of the tools that are used in this repositor
 ## AMD Vivado
 - [PSL statements seem to be not supported in plain VHDL-2008](https://adaptivesupport.amd.com/s/question/0D5KZ00000aaQjI0AU/are-vhdl2008-psl-asserts-supported-in-vivado?language=en_US) (only workaround seems to be `-- psl` comment blocks)
 - case of port names in XDC constaints must exactly match the case in VHDL code
+- default type of VHDL files is `VHDL` instead of `VHDL 2008`, to fix this, run this in TCL console: `set_property file_type {VHDL 2008} [get_files -filter {FILE_TYPE == VHDL}]`
