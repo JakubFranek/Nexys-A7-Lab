@@ -1,0 +1,31 @@
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc: mode bmc
+bmc: depth 30
+bmc: append 1
+prove: mode prove
+prove: depth 30
+prove: append 1
+cover: mode cover
+cover: depth 30
+cover: append 1
+
+[engines]
+smtbmc z3
+
+[script]
+ghdl -fpsl --std=08 double_dabble.vhd double_dabble.psl utilities_package.vhd bcd_array_package.vhd bcd_conversion_package.vhd -e double_dabble
+prep -top double_dabble
+chformal -assert -remove */*_note
+chformal -assert -remove */*_warning
+
+[files]
+source/double_dabble/double_dabble.vhd
+source/double_dabble/double_dabble.psl
+source/packages/utilities_package.vhd
+source/packages/bcd_array_package.vhd
+source/packages/bcd_conversion_package.vhd

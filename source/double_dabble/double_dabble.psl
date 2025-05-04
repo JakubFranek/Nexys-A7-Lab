@@ -1,0 +1,27 @@
+vunit double_dabble_psl (double_dabble(rtl)) {
+
+    default clock is rising_edge(i_clk);
+
+    signal q_binary : unsigned(BINARY_WIDTH - 1 downto 0) := (others => '0');
+    signal result : natural;
+
+    result <= bcd_to_natural(o_bcd);
+
+    proc_q_binary: process (i_clk) is
+    begin
+        if rising_edge(i_clk) then
+            if (current_state = S_LOAD_SHIFTREG and i_reset /= RESET_ACTIVE_LEVEL) then
+                q_binary <= i_binary;
+            end if;
+        end if;
+    end process proc_q_binary;
+
+    -- Asserts
+    output_value:
+    assert always (o_done) -> (result = q_binary) abort (i_reset = RESET_ACTIVE_LEVEL);
+
+    -- conversion length
+    -- reset behavior
+    -- data validity
+
+}
