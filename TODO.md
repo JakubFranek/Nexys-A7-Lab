@@ -17,7 +17,15 @@ This is a task list for this repository. This list is not exhaustive.
   - [ ] Study check library
   - [ ] Study run library
 
+- [ ] Create (un)signed to BCD converter
+  - [ ] Create a synthesizeable function (for small widths)
+  - [ ] Create a double-dabble entity (for larger widths)
+
 ## To do
+
+- [ ] Create parametrized VGA controller
+
+- [ ] Investigate TerosHDL not creating state diagram for double_dabble entity
 
 - [ ] Handle package documentation 
 

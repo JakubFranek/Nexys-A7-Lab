@@ -35,6 +35,7 @@ library ieee;
     use ieee.numeric_std.all;
     use ieee.math_real.log2;
     use ieee.math_real.ceil;
+    use work.utilities_package.all;
 
 entity debouncer is
     generic (
@@ -52,7 +53,7 @@ end entity debouncer;
 architecture rtl of debouncer is
 
     --! counter width required to fit `PERIOD` + 1
-    constant COUNTER_WIDTH : natural := natural(ceil(log2(real(PERIOD + 1))));
+    constant COUNTER_WIDTH : natural := get_binary_width(PERIOD + 1);
 
     --! counter register
     signal q_counter : unsigned(COUNTER_WIDTH - 1 downto 0) := (others => '0');

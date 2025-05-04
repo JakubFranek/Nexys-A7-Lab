@@ -21,6 +21,7 @@ library ieee;
     use ieee.numeric_std.all;
     use ieee.math_real.log2;
     use ieee.math_real.ceil;
+    use work.utilities_package.all;
 
 entity clock_enable_generator is
     generic (
@@ -36,7 +37,7 @@ end entity clock_enable_generator;
 architecture rtl of clock_enable_generator is
 
     --! counter width required to fit `PERIOD`
-    constant COUNTER_WIDTH : natural := natural(ceil(log2(real(PERIOD))));
+    constant COUNTER_WIDTH : natural := get_binary_width(PERIOD);
 
     --! counter register
     signal q_counter : unsigned(COUNTER_WIDTH - 1 downto 0) := (others => '0');

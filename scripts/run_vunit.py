@@ -4,6 +4,18 @@ from pathlib import Path
 import importlib
 import importlib.util
 
+
+def find_file(root: Path, target_name: str) -> Path | None:
+    for child in root.iterdir():
+        if child.name == target_name:
+            return child
+        if child.is_dir():
+            result = find_file(child, target_name)
+            if result:
+                return result
+    return None
+
+
 # Define default arguments
 default_args = [
     "run.py",
@@ -30,7 +42,13 @@ lib.add_source_files("testbench/**/*.vhd")
 # based on the presence of a `vunit_config.py` file within the testbench
 # directory (which is named the same as the testbench itself, without the `_tb`).
 for testbench in lib.get_test_benches():
-    config_path = Path(f"testbench/{testbench.name.strip('_tb')}/vunit_config.py")
+    testbench_path = find_file(Path("testbench"), testbench.name + ".vhd")
+    if testbench_path is None:
+        print(
+            f"Could not find testbench directory for testbench '{testbench.name}', skipping..."
+        )
+        continue
+    config_path = testbench_path.parent / "vunit_config.py"
     if config_path.exists():
         spec = importlib.util.spec_from_file_location("config", str(config_path))
         config_module = importlib.util.module_from_spec(spec)

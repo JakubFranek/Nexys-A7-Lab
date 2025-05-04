@@ -27,3 +27,5 @@ rule:
     generic_map_002:        # This rule checks generic names have proper case.
         disable: false
         case: "upper"
+    type_500:               # This rule checks enumerate types have proper case.
+        case: "upper"

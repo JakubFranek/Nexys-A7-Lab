@@ -30,7 +30,6 @@ when `i_input` changes (this is why the counter final value is `PERIOD` and not 
 | Generic name | Type                            | Value | Description                                                        |
 | ------------ | ------------------------------- | ----- | ------------------------------------------------------------------ |
 | PERIOD       | natural range 1 to natural'high | 10    | number of `i_clk_ena` cycles during which `i_input` must be stable |
-| SIMULATION   | boolean                         | true  | generate simulation asserts                                        |
 
 ## Ports
 
@@ -51,9 +50,9 @@ when `i_input` changes (this is why the counter final value is `PERIOD` and not 
 
 ## Constants
 
-| Name          | Type    | Value                                 | Description                                |
-| ------------- | ------- | ------------------------------------- | ------------------------------------------ |
-| COUNTER_WIDTH | natural | natural(ceil(log2(real(PERIOD + 1)))) | counter width required to fit `PERIOD` + 1 |
+| Name          | Type    | Value                        | Description                                |
+| ------------- | ------- | ---------------------------- | ------------------------------------------ |
+| COUNTER_WIDTH | natural | get_binary_width(PERIOD + 1) | counter width required to fit `PERIOD` + 1 |
 
 ## Processes
 - proc_clk: ( i_clk )

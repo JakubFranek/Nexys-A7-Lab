@@ -24,7 +24,7 @@ TODO.dm        # Project task list
 
 - [x] Switch / button debouncer
 - [x] 7-segment display controller
-- [ ] PWM controller
+- [x] PWM controller
 - [ ] VGA controller
 - [ ] PS/2 mouse controller
 - [ ] PS/2 keyboard controller

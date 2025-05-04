@@ -22,7 +22,6 @@ The initial value of output `o_clk_ena` is '0'.
 | Generic name | Type                            | Value | Description                                                             |
 | ------------ | ------------------------------- | ----- | ----------------------------------------------------------------------- |
 | PERIOD       | natural range 1 to natural'high | 10    | number of clock cycles required to generate a single clock enable pulse |
-| SIMULATION   | boolean                         | true  | generate simulation asserts                                             |
 
 ## Ports
 
@@ -39,9 +38,9 @@ The initial value of output `o_clk_ena` is '0'.
 
 ## Constants
 
-| Name          | Type    | Value                             | Description                            |
-| ------------- | ------- | --------------------------------- | -------------------------------------- |
-| COUNTER_WIDTH | natural | natural(ceil(log2(real(PERIOD)))) | counter width required to fit `PERIOD` |
+| Name          | Type    | Value                    | Description                            |
+| ------------- | ------- | ------------------------ | -------------------------------------- |
+| COUNTER_WIDTH | natural | get_binary_width(PERIOD) | counter width required to fit `PERIOD` |
 
 ## Processes
 - proc_clk_ena: ( i_clk )
