@@ -10,9 +10,10 @@ Simple unsigned parametrized counter.
 
 ## Generics
 
-| Generic name | Type                            | Value | Description              |
-| ------------ | ------------------------------- | ----- | ------------------------ |
-| WIDTH        | natural range 1 to natural'high | 4     | number of decimal digits |
+| Generic name | Type                            | Value          | Description              |
+| ------------ | ------------------------------- | -------------- | ------------------------ |
+| WIDTH        | natural range 1 to natural'high | 4              | counter width            |
+| COUNTER_MAX  | natural                         | 2 ** WIDTH - 1 | maximum value of counter |
 
 ## Ports
 
@@ -22,14 +23,8 @@ Simple unsigned parametrized counter.
 | i_enable    | in        | std_logic                    | enable (is lower priority than reset)                                                    |
 | i_direction | in        | std_logic                    | count up (1) or down (0)                                                                 |
 | i_reset     | in        | std_logic                    | reset (has priority over enable)                                                         |
-| o_count     | out       | unsigned(WIDTH - 1 downto 0) | output digits, index 0 is the least significant                                          |
+| o_count     | out       | unsigned(WIDTH - 1 downto 0) | counter output                                                                           |
 | o_overflow  | out       | std_logic                    | overflow flag, active when counter overflows (counting up) or underflows (counting down) |
-
-## Constants
-
-| Name        | Type    | Value                   | Description              |
-| ----------- | ------- | ----------------------- | ------------------------ |
-| COUNTER_MAX | natural | 2 ** o_count'length - 1 | maximum value of counter |
 
 ## Processes
 - proc_clk: ( i_clk )

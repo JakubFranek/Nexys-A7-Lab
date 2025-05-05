@@ -6,7 +6,7 @@ library ieee;
 
 entity counter is
     generic (
-        --! number of decimal digits
+        --! counter width
         WIDTH : natural range 1 to natural'high := 4;
         --! maximum value of counter
         COUNTER_MAX : natural := 2 ** WIDTH - 1
@@ -20,7 +20,7 @@ entity counter is
         i_direction : in    std_logic;
         --! reset (has priority over enable)
         i_reset : in    std_logic;
-        --! output digits, index 0 is the least significant
+        --! counter output
         o_count : out   unsigned(WIDTH - 1 downto 0) := (others => '0');
         --! overflow flag, active when counter overflows (counting up) or underflows (counting down)
         o_overflow : out   std_logic := '0'
