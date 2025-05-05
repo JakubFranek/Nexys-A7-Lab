@@ -2,11 +2,13 @@ vunit double_dabble_psl (double_dabble(rtl)) {
 
     default clock is rising_edge(i_clk);
 
+    -- Helper code ----------------------------------------------------------------------------------------------------
     signal q_binary : unsigned(BINARY_WIDTH - 1 downto 0) := (others => '0');
     signal result : natural;
 
-    result <= bcd_to_natural(o_bcd);
+    result <= bcd_to_natural(o_bcd);    -- BCD to natural conversion for comparisons in asserts
 
+    -- Helper process for capturing the data that is actually being converted
     proc_q_binary: process (i_clk) is
     begin
         if rising_edge(i_clk) then
@@ -16,12 +18,24 @@ vunit double_dabble_psl (double_dabble(rtl)) {
         end if;
     end process proc_q_binary;
 
-    -- Asserts
-    output_value:
+    -- Asserts --------------------------------------------------------------------------------------------------------
+    output_correct:
     assert always (o_done) -> (result = q_binary) abort (i_reset = RESET_ACTIVE_LEVEL);
 
-    -- conversion length
-    -- reset behavior
-    -- data validity
+    reset:
+    assert always (i_reset = RESET_ACTIVE_LEVEL) 
+                    -> next (not o_done and o_ready and result = 0);
 
+    ready_done_deactivation:
+    assert always (not i_reset and i_convert and o_ready) 
+                    -> next (not o_ready and not o_done);
+
+    -- Default `BINARY_WIDTH` is 6, conversion time is `BINARY_WIDTH - 1` cycles
+    conversion:
+    assert always {not i_reset and i_convert and o_ready} |=> 
+                    {not o_ready and not o_done[*4]; o_ready and o_done} 
+                    abort (i_reset = RESET_ACTIVE_LEVEL);
+
+    never_done_not_ready:
+    assert never (o_done and not o_ready);
 }

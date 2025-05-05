@@ -16,7 +16,7 @@
     highlight_focused: None,
     fill_high_values: None,
     waves: Some((
-        source: File("simulation\\vunit_out\\test_output\\lib.double_dabble_tb.all_01cc562bb64d302a831892c34c6c4e2d9592d1df\\ghdl\\wave.ghw"),
+        source: File("simulation\\vunit_out\\test_output\\lib.double_dabble_tb.BINARY=99_5936061616a2a87c19433c70d97911618e9007e7\\ghdl\\wave.ghw"),
         format: Ghw,
         active_scope: Some(WaveScope((
             strs: [
@@ -25,6 +25,12 @@
         ))),
         items_tree: (
             items: [
+                (
+                    item_ref: (21),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
                 (
                     item_ref: (1),
                     level: 0,
@@ -56,13 +62,13 @@
                     selected: false,
                 ),
                 (
-                    item_ref: (21),
+                    item_ref: (4),
                     level: 0,
                     unfolded: true,
                     selected: false,
                 ),
                 (
-                    item_ref: (4),
+                    item_ref: (28),
                     level: 0,
                     unfolded: true,
                     selected: false,
@@ -142,29 +148,6 @@
             ],
         ),
         displayed_items: {
-            (18): Divider((
-                color: None,
-                background_color: None,
-                name: Some("DUT internals:"),
-            )),
-            (2): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "double_dabble_tb",
-                        ],
-                    ),
-                    name: "convert",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "convert",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
             (24): Variable((
                 variable_ref: (
                     path: (
@@ -184,10 +167,43 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (21): Divider((
+            (22): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "double_dabble_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "current_state",
+                ),
                 color: None,
                 background_color: None,
-                name: Some("Inputs:"),
+                display_name: "current_state",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (8): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "double_dabble_tb",
+                            "bcd_array",
+                        ],
+                    ),
+                    name: "[1]",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "[1] [3:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
             )),
             (1): Variable((
                 variable_ref: (
@@ -207,26 +223,89 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (6): Variable((
+            (2): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "double_dabble_tb",
-                            "bcd_array",
                         ],
                     ),
-                    name: "[3]",
+                    name: "convert",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "[3] [3:0]",
+                display_name: "convert",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (12): Variable((
+            (17): Divider((
+                color: None,
+                background_color: None,
+                name: Some("Outputs:"),
+            )),
+            (3): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "double_dabble_tb",
+                        ],
+                    ),
+                    name: "reset",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "reset",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (18): Divider((
+                color: None,
+                background_color: None,
+                name: Some("DUT internals:"),
+            )),
+            (28): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "double_dabble_tb",
+                        ],
+                    ),
+                    name: "ready",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "ready",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (27): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "double_dabble_tb",
+                        ],
+                    ),
+                    name: "binary_vector",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "binary_vector [7:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (11): Variable((
                 variable_ref: (
                     path: (
                         strs: [
@@ -234,11 +313,11 @@
                             "inst_uut",
                         ],
                     ),
-                    name: "bit_count",
+                    name: "binary_shiftreg",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "bit_count [2:0]",
+                display_name: "binary_shiftreg [4:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -282,18 +361,43 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (27): Variable((
+            (10): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "double_dabble_tb",
+                            "inst_uut",
                         ],
                     ),
-                    name: "binary_vector",
+                    name: "bcd_shiftreg",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "binary_vector [10:0]",
+                display_name: "bcd_shiftreg [7:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (21): Divider((
+                color: None,
+                background_color: None,
+                name: Some("Inputs:"),
+            )),
+            (12): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "double_dabble_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "bit_count",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "bit_count [2:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -319,126 +423,8 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (10): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "double_dabble_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "bcd_shiftreg",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "bcd_shiftreg [15:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (7): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "double_dabble_tb",
-                            "bcd_array",
-                        ],
-                    ),
-                    name: "[2]",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "[2] [3:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (22): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "double_dabble_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "current_state",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "current_state",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (17): Divider((
-                color: None,
-                background_color: None,
-                name: Some("Outputs:"),
-            )),
-            (8): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "double_dabble_tb",
-                            "bcd_array",
-                        ],
-                    ),
-                    name: "[1]",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "[1] [3:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (3): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "double_dabble_tb",
-                        ],
-                    ),
-                    name: "reset",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "reset",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (11): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "double_dabble_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "binary_shiftreg",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "binary_shiftreg [7:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
         },
-        display_item_ref_counter: 27,
+        display_item_ref_counter: 28,
         viewports: [
             (
                 curr_left: (0.0),
@@ -462,9 +448,12 @@
         display_variable_indices: true,
         graphics: {},
     )),
-    drag_started: true,
+    drag_started: false,
     drag_source_idx: None,
-    drag_target_idx: None,
+    drag_target_idx: Some((
+        before: (0),
+        level: 0,
+    )),
     previous_waves: None,
     count: None,
     blacklisted_translators: [],

@@ -19,7 +19,8 @@ This is a task list for this repository. This list is not exhaustive.
 
 - [ ] Create (un)signed to BCD converter
   - [ ] Create a synthesizeable function (for small widths)
-  - [ ] Create a double-dabble entity (for larger widths)
+  - [x] Create a double-dabble entity (for larger widths)
+    - [x] Improve .psl file
 
 ## To do
 
@@ -28,8 +29,6 @@ This is a task list for this repository. This list is not exhaustive.
 - [ ] Investigate TerosHDL not creating state diagram for double_dabble entity
 
 - [ ] Handle package documentation 
-
-- [ ] Test FSM diagram generation in TerosHDL
 
 ## Backlog
 
@@ -83,3 +82,4 @@ This is a task list for this repository. This list is not exhaustive.
   - [x] Create VUnit testbench
   - [x] Create PSL assertions
   - [x] Test on FPGA
+- [x] Check docs are up to date (esp. w.r.t. outdated SIMULATION generic)

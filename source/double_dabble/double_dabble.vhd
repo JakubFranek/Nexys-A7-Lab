@@ -5,11 +5,17 @@
 --! and `BINARY_WIDTH - 2` cycles are used to convert the data.
 --!
 --! Note that `o_bcd` data changes during conversion and the data are valid only when `o_done` is high. If invalid data
---! are not permissible, the output data should be registered and updated only when `o_done` is high.
+--! are not permissible, the output data should be registered and updated only when `o_done` is high. Technically the
+--! output data is also valid in the first cycle after `o_done` goes low, since in that cycle new input data is loaded
+--! into shift registers.
 --!
 --! Note that the input data is registered in shift registers in `S_LOAD_SHIFTREG` state, which occurs one clock after
---! `i_convert` goes high. This means that the converter number is not necessarily same as the number in `i_binary`
+--! `i_convert` goes high. This means that the converted number is not necessarily same as the number in `i_binary`
 --! when `i_convert` goes high, but rather that is present on `i_binary` in the next clock after `i_convert` goes high.
+--!
+--! The output `o_ready` goes low when new conversion starts and goes high when conversion is done, at the same time as
+--! `o_done`. The output `o_ready` is always high when `i_reset` is active, but the conversion only starts when`o_ready`
+--! is high and `i_convert` is high when `i_reset` is inactive.
 
 library ieee;
     use ieee.std_logic_1164.all;
@@ -28,9 +34,10 @@ entity double_dabble is
     port (
         i_clk     : in    std_logic;                           --! System clock
         i_reset   : in    std_logic;                           --! Synchronous reset
-        i_convert : in    std_logic;                           --! Start conversion when high
+        i_convert : in    std_logic;                           --! Starts conversion when high and `o_ready` is high
         i_binary  : in    unsigned(BINARY_WIDTH - 1 downto 0); --! Binary data to convert
-        o_done    : out   std_logic;                           --! Indicates completed conversion
+        o_done    : out   std_logic;                           --! High when conversion is done and data are valid
+        o_ready   : out   std_logic;                           --! When low, a conversion is under way
         --! Output data, valid only when `o_done` is high, static until new conversion starts
         o_bcd : out   t_bcd_array(BCD_DIGITS - 1 downto 0)
     );
@@ -177,6 +184,8 @@ begin
     run_algorithm  <= '1' when current_state = S_CONVERTING else
                       '0';
     o_done         <= '1' when current_state = S_DONE else
+                      '0';
+    o_ready        <= '1' when current_state = S_IDLE or current_state = S_DONE else
                       '0';
 
     gen_bcd_array : for d in BCD_DIGITS - 1 downto 0 generate

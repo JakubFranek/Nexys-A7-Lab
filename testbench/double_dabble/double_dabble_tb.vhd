@@ -26,7 +26,7 @@ architecture tb of double_dabble_tb is
     constant CLK_PERIOD : time      := 20 ns;
 
     signal convert, reset : std_logic                           := '0';
-    signal done           : std_logic;
+    signal done,    ready : std_logic;
     signal binary_vector  : unsigned(BINARY_WIDTH - 1 downto 0) := to_unsigned(BINARY, BINARY_WIDTH);
     signal bcd_array      : t_bcd_array(BCD_DIGITS - 1 downto 0);
 
@@ -44,6 +44,7 @@ begin
             i_convert => convert,
             i_binary  => binary_vector,
             o_done    => done,
+            o_ready   => ready,
             o_bcd     => bcd_array
         );
 
@@ -59,9 +60,18 @@ begin
 
         show(get_logger(default_checker), display_handler, pass);
 
+        check_equal(ready, '1', "Check initial value of `o_ready`");
+        check_equal(done, '0', "Check initial value of `o_done`");
+
         convert <= '1';
 
-        wait until rising_edge(done);
+        wait until rising_edge(clk);
+        wait for 1 ns;
+
+        check_equal(ready, '0', "Check value of `o_ready`");
+
+        -- conversion time is `BINARY_WIDTH - 1` clock cycles, wait for one less because the first occured above
+        wait for (BINARY_WIDTH - 2) * CLK_PERIOD;
         wait for 1 ns;
 
         for d in 0 to BCD_DIGITS - 1 loop
@@ -71,6 +81,8 @@ begin
         end loop;
 
         check_equal(v_result, BINARY, "Check conversion result");
+        check_equal(done, '1', "Check value of `o_done`");
+        check_equal(ready, '1', "Check value of `o_ready`");
 
         wait until rising_edge(clk);
         wait until rising_edge(clk);
