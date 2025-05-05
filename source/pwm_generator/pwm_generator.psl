@@ -20,7 +20,8 @@ vunit pwm_generator_psl (pwm_generator(rtl)) {
     assert always (i_reset) -> next (q_duty = prev(i_duty));
 
     q_counter_increment:
-    assert always (i_clk_ena and not i_reset and q_counter < COUNTER_MAX) -> next (q_counter = prev(q_counter) + 1)
+    assert always (i_clk_ena and not i_reset and q_counter < COUNTER_MAX) 
+                    -> next (q_counter = prev(q_counter) + 1)
                     abort (i_reset);
 
     q_counter_overflow:
@@ -30,14 +31,19 @@ vunit pwm_generator_psl (pwm_generator(rtl)) {
     assert always (not i_reset and not i_clk_ena) -> next (stable(q_counter));
 
     q_duty_update:
-    assert always (i_clk_ena and not i_reset and q_counter = COUNTER_MAX) -> next (q_duty = prev(i_duty));
+    assert always (i_clk_ena and not i_reset and q_counter = COUNTER_MAX) 
+                    -> next (q_duty = prev(i_duty));
 
     q_duty_stable:
     assert always (not i_reset and q_counter /= COUNTER_MAX) -> next (stable(q_duty));
 
     o_pwm_active:
-    assert always (i_clk_ena and not i_reset and q_duty > 0 and q_counter < (q_duty - 1) and q_counter /= COUNTER_MAX) -> next (o_pwm = POLARITY) abort (i_reset);
+    assert always (i_clk_ena and not i_reset and q_duty > 0 and q_counter < (q_duty - 1) and q_counter /= COUNTER_MAX) 
+                    -> next (o_pwm = POLARITY) 
+                    abort (i_reset);
 
     o_pwm_inactive:
-    assert always (i_clk_ena and not i_reset and q_counter >= q_duty and q_counter /= COUNTER_MAX) -> next (o_pwm = not POLARITY) abort (i_reset);
+    assert always (i_clk_ena and not i_reset and q_counter >= q_duty and q_counter /= COUNTER_MAX) 
+                    -> next (o_pwm = not POLARITY) 
+                    abort (i_reset);
 }
