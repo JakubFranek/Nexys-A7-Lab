@@ -3,6 +3,7 @@ library ieee;
     use ieee.numeric_std.all;
     use ieee.math_real.all;
     use work.bcd_array_package.all;
+    use work.math_functions_package.all;
 
 package bcd_conversion_package is
 
@@ -33,7 +34,7 @@ package body bcd_conversion_package is
         if (number = 0) then
             return 1;
         else
-            return natural(floor(log10(real(abs(number))))) + 1;
+            return floor_log(number, 10) + 1;
         end if;
 
     end function get_decimal_size;
@@ -45,7 +46,10 @@ package body bcd_conversion_package is
         binary : unsigned
     ) return t_bcd_array is
 
-        constant DIGITS         : natural                           := get_decimal_size(to_integer(binary));
+        -- The reason why `2**binary'length-1` is used in the following constant definition instead of the actual value
+        -- of `binary` is because the value of `binary` changes, but the value of `2**binary'length-1` does not.
+        -- This is important to be able to synthesize the function.
+        constant DIGITS         : natural                           := get_decimal_size(2 ** binary'length - 1);
         variable v_unsigned_bcd : unsigned(DIGITS * 4 - 1 downto 0) := (others => '0');
         variable v_bcd_array    : t_bcd_array(DIGITS - 1 downto 0)  := (others => "0000");
 
@@ -66,7 +70,7 @@ package body bcd_conversion_package is
 
             end loop;
 
-            -- "Double" step:Shift left and load next bit
+            -- "Double" step: Shift left and load next bit
             v_unsigned_bcd := v_unsigned_bcd(v_unsigned_bcd'left-1 downto 0) & binary(bit_index);
 
         end loop;

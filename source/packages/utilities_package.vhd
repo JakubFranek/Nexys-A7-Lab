@@ -2,6 +2,7 @@ library ieee;
     use ieee.std_logic_1164.all;
     use ieee.numeric_std.all;
     use ieee.math_real.all;
+    use work.math_functions_package.all;
 
 package utilities_package is
 
@@ -24,7 +25,7 @@ package body utilities_package is
         if (number = 0) then
             return 1;
         else
-            return integer(ceil(log2(real(number)))) + 1;
+            return ceil_log(number, 2) + 1;
         end if;
 
     end function get_binary_width;
