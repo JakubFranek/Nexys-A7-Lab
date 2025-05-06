@@ -25,12 +25,31 @@ The output `o_ready` goes low when new conversion starts and goes high when conv
 `o_done`. The output `o_ready` is always high when `i_reset` is active, but the conversion only starts when`o_ready`
 is high and `i_convert` is high when `i_reset` is inactive.
 
+The following table summarizes the resources used by this module according to Yosys.
+
+| BINARY_WIDTH | BCD_DIGITS | Cells (Yosys `prep`) | Cells (Xilinx XC7) |
+|--------------|------------|------------------------|------------------------|
+| 4            | 2          | 34 | 69 |
+| 5            | 2          | 34 | 72 |
+| 6            | 2          | 34 | 77 |
+| 7            | 3          | 38 | 102 |
+| 8            | 3          | 38 | 105 |
+| 9            | 3          | 38 | 113 |
+| 10           | 4          | 41 | 135 |
+| 14           | 5          | 44 | 172 |
+| 17           | 6          | 47 | 200 |
+| 20           | 7          | 50 | 228 |
+| 24           | 8          | 53 | 218 (!) |
+
+For implementation on Xilinx XC7, `double_dabble` entity is more resource efficient than the purely combinational
+`unsigned_to_bcd_lut` entity for `BINARY_WIDTH` >= 9 and `BCD_DIGITS` >= 3.
+
 ## Generics
 
 | Generic name       | Type                            | Value | Description                 |
 | ------------------ | ------------------------------- | ----- | --------------------------- |
 | RESET_ACTIVE_LEVEL | std_logic                       | '1'   | Active level of `i_reset`   |
-| BINARY_WIDTH       | natural range 4 to natural'high | 6     | Width of binary input       |
+| BINARY_WIDTH       | natural range 4 to natural'high | 4     | Width of binary input       |
 | BCD_DIGITS         | natural range 2 to natural'high | 2     | Number of output BCD digits |
 
 ## Ports

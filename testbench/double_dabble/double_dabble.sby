@@ -18,7 +18,7 @@ cover: append 1
 smtbmc z3
 
 [script]
-ghdl -fpsl --std=08 double_dabble.vhd double_dabble.psl utilities_package.vhd bcd_array_package.vhd bcd_conversion_package.vhd -e double_dabble
+ghdl -gBINARY_WIDTH=6 -gBCD_DIGITS=2 -fpsl --std=08 double_dabble.vhd double_dabble.psl utilities_package.vhd math_functions_package.vhd bcd_array_package.vhd bcd_conversion_package.vhd -e double_dabble
 prep -top double_dabble
 chformal -assert -remove */*_note
 chformal -assert -remove */*_warning
@@ -27,5 +27,6 @@ chformal -assert -remove */*_warning
 source/double_dabble/double_dabble.vhd
 source/double_dabble/double_dabble.psl
 source/packages/utilities_package.vhd
+source/packages/math_functions_package.vhd
 source/packages/bcd_array_package.vhd
 source/packages/bcd_conversion_package.vhd
