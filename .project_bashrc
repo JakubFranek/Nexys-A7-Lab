@@ -1,5 +1,5 @@
 alias vunit="python scripts/run_vunit.py"
 alias formal="python scripts/run_sby.py"
 alias docfix="python scripts/doc_fix.py"
-alias synth_svg="python scripts/synthesize_svg.py"
+alias synth="python scripts/synthesize.py"
 alias surfer="python scripts/load_surfer.py"

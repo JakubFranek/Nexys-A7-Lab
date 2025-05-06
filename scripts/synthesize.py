@@ -33,14 +33,28 @@ def run_command(command, cwd=None):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Synthesize a VHDL file into a SVG")
+    parser = argparse.ArgumentParser(description="Synthesize a VHDL file")
     parser.add_argument(
         "directory",
         type=Path,
         help="Relative path to the directory which contains the VHDL file with the same name.",
     )
+    parser.add_argument(
+        "synthesis_command",
+        type=str,
+        nargs="*",
+        default=["prep"],
+        help="Synthesis command to be passed to Yosys, such as 'prep', 'synth_xilinx' etc.",
+    )
+    parser.add_argument(
+        "--generate_svg",
+        action=argparse.BooleanOptionalAction,
+        help="Generate SVG file with the synthesized netlist.",
+    )
+    parser.set_defaults(generate_svg=True)
     args = parser.parse_args()
 
+    synthesis_command = " ".join(args.synthesis_command)
     vhd_file_path: Path = args.directory / (args.directory.name + ".vhd")
     vhd_file_paths: list[Path] = list(Path("source").glob("**/*.vhd"))
     svg_file_path: Path = args.directory / (args.directory.name + "_netlist.svg")
@@ -55,11 +69,17 @@ if __name__ == "__main__":
             "-p",
             "proc",
             "-p",
+            f"{synthesis_command} -top {vhd_file_path.stem}",
+            "-p",
             f"write_json {json_file_name}",
             "-p",
             "stat",
         ]
     )
+
+    if not args.generate_svg:
+        sys.exit(0)  # Exit early if SVG generation is disabled
+
     run_command(
         [
             NETLISTSVG_PATH,
