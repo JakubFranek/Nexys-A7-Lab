@@ -32,6 +32,18 @@
                     selected: false,
                 ),
                 (
+                    item_ref: (22),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
+                    item_ref: (23),
+                    level: 0,
+                    unfolded: true,
+                    selected: false,
+                ),
+                (
                     item_ref: (2),
                     level: 0,
                     unfolded: true,
@@ -64,24 +76,6 @@
             ],
         ),
         displayed_items: {
-            (1): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "vga_controller_tb",
-                        ],
-                    ),
-                    name: "clk",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "clk",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
             (3): Variable((
                 variable_ref: (
                     path: (
@@ -94,42 +88,6 @@
                 color: None,
                 background_color: None,
                 display_name: "vsync",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (5): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "vga_controller_tb",
-                        ],
-                    ),
-                    name: "column",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "column [31:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (4): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "vga_controller_tb",
-                        ],
-                    ),
-                    name: "row",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "row [31:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -154,6 +112,60 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
+            (4): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "vga_controller_tb",
+                        ],
+                    ),
+                    name: "row",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "row [10:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (22): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "vga_controller_tb",
+                        ],
+                    ),
+                    name: "clk_ena",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "clk_ena",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (1): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "vga_controller_tb",
+                        ],
+                    ),
+                    name: "clk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "clk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
             (6): Variable((
                 variable_ref: (
                     path: (
@@ -172,12 +184,48 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
+            (5): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "vga_controller_tb",
+                        ],
+                    ),
+                    name: "column",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "column [11:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (23): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "vga_controller_tb",
+                        ],
+                    ),
+                    name: "reset",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "reset",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
         },
-        display_item_ref_counter: 21,
+        display_item_ref_counter: 23,
         viewports: [
             (
-                curr_left: (0.9882145777095105),
-                curr_right: (0.9882464736876038),
+                curr_left: (0.0),
+                curr_right: (1.0),
                 target_left: (0.8384827801406035),
                 target_right: (1.0330354424076118),
                 move_start_left: (0.8384827801406035),
@@ -187,11 +235,10 @@
             ),
         ],
         cursor: Some((1, [
-            2362905344,
-            3911,
+            19733008,
         ])),
         markers: {},
-        focused_item: Some((5)),
+        focused_item: None,
         focused_transaction: (None, None),
         default_variable_name_type: Unique,
         scroll_offset: 0.0,
@@ -212,7 +259,7 @@
     show_performance: false,
     show_logs: false,
     show_cursor_window: false,
-    wanted_timeunit: FemtoSeconds,
+    wanted_timeunit: Auto,
     time_string_format: None,
     show_url_entry: false,
     variable_name_filter_focused: false,

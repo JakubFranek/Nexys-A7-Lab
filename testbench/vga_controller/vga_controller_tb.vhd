@@ -14,8 +14,11 @@ end entity vga_controller_tb;
 
 architecture tb of vga_controller_tb is
 
-    signal   clk        : std_logic := '1';
-    constant CLK_PERIOD : time      := 40 ns;
+    signal   clk            : std_logic := '1';
+    signal   clk_ena        : std_logic;
+    signal   reset          : std_logic := '0';
+    constant CLK_PERIOD     : time      := 10 ns;
+    constant VGA_CLK_PERIOD : time      := 40 ns;
 
     signal hsync          : std_logic;
     signal vsync          : std_logic;
@@ -31,6 +34,15 @@ architecture tb of vga_controller_tb is
 
 begin
 
+    inst_clk_gen : entity work.clock_enable_generator
+        generic map (
+            PERIOD => 4
+        )
+        port map (
+            i_clk     => clk,
+            o_clk_ena => clk_ena
+        );
+
     inst_uut : entity work.vga_controller
         generic map (
             VGA_CONFIG         => VGA_CONFIG_H600_V480,
@@ -38,8 +50,8 @@ begin
         )
         port map (
             i_clk            => clk,
-            i_clk_ena        => '1',
-            i_reset          => '0',
+            i_clk_ena        => clk_ena,
+            i_reset          => reset,
             o_hsync          => hsync,
             o_vsync          => vsync,
             o_row            => row,
@@ -71,7 +83,8 @@ begin
         check_equal(vsync, '1', "Check value of `o_vsync` at the end of first line");
         check_equal(display_active, '0', "Check value of `o_display_active` at the end of first line");
 
-        check_equal(now - v_timestamp, CLK_PERIOD * VGA_CONFIG_H600_V480.h_res,
+        -- The extra clock period is because the clock enable generator is one period delayed
+        check_equal(now - v_timestamp, VGA_CLK_PERIOD * VGA_CONFIG_H600_V480.h_res + CLK_PERIOD,
                     "Check horizontal active time");
 
         v_timestamp := now;
@@ -85,7 +98,7 @@ begin
         check_equal(vsync, '1', "Check value of `o_vsync` at the end of first line horizontal sync");
         check_equal(display_active, '0', "Check value of `o_display_active` at the end of first line horizontal sync");
 
-        check_equal(now - v_timestamp, CLK_PERIOD * VGA_CONFIG_H600_V480.h_front_porch,
+        check_equal(now - v_timestamp, VGA_CLK_PERIOD * VGA_CONFIG_H600_V480.h_front_porch,
                     "Check horizontal front porch time");
 
         v_timestamp := now;
@@ -101,7 +114,7 @@ begin
         check_equal(display_active, '0',
                     "Check value of `o_display_active` at the start of second line horizontal sync");
 
-        check_equal(now - v_timestamp, CLK_PERIOD * VGA_CONFIG_H600_V480.h_sync_width,
+        check_equal(now - v_timestamp, VGA_CLK_PERIOD * VGA_CONFIG_H600_V480.h_sync_width,
                     "Check horizontal sync width time");
 
         v_timestamp := now;
@@ -114,7 +127,7 @@ begin
         check_equal(vsync, '1', "Check value of `o_vsync` at the start of second line");
         check_equal(display_active, '1', "Check value of `o_display_active` at the start of second line");
 
-        check_equal(now - v_timestamp, CLK_PERIOD * VGA_CONFIG_H600_V480.h_back_porch,
+        check_equal(now - v_timestamp, VGA_CLK_PERIOD * VGA_CONFIG_H600_V480.h_back_porch,
                     "Check horizontal back porch time");
 
         v_timestamp := now;
@@ -127,8 +140,9 @@ begin
         check_equal(vsync, '1', "Check value of `o_vsync` at the end of last line");
         check_equal(display_active, '0', "Check value of `o_display_active` at the end of last line");
 
-        check_equal(now, CLK_PERIOD *
-                    (VGA_H_TOTAL * (VGA_CONFIG_H600_V480.v_res - 1) + VGA_CONFIG_H600_V480.h_res),
+        -- The extra clock period is because the clock enable generator is one period delayed
+        check_equal(now, VGA_CLK_PERIOD *
+                    (VGA_H_TOTAL * (VGA_CONFIG_H600_V480.v_res - 1) + VGA_CONFIG_H600_V480.h_res) + CLK_PERIOD,
                     "Check time until the end of last line active area");
 
         v_timestamp := now;
@@ -143,7 +157,7 @@ begin
         check_equal(vsync, '0', "Check value of `o_vsync` at the end of last line vertical sync");
         check_equal(display_active, '0', "Check value of `o_display_active` at the end of last line vertical sync");
 
-        check_equal(now - v_timestamp, CLK_PERIOD * (VGA_H_TOTAL * VGA_CONFIG_H600_V480.v_front_porch
+        check_equal(now - v_timestamp, VGA_CLK_PERIOD * (VGA_H_TOTAL * VGA_CONFIG_H600_V480.v_front_porch
                     + VGA_H_TOTAL - VGA_CONFIG_H600_V480.h_res),
                     "Check vertical front porch time");
 
@@ -159,7 +173,7 @@ begin
         check_equal(vsync, '1', "Check value of `o_vsync` at the start of first line vertical sync");
         check_equal(display_active, '0', "Check value of `o_display_active` at the start of first line vertical sync");
 
-        check_equal(now - v_timestamp, CLK_PERIOD * VGA_H_TOTAL * VGA_CONFIG_H600_V480.v_sync_width,
+        check_equal(now - v_timestamp, VGA_CLK_PERIOD * VGA_H_TOTAL * VGA_CONFIG_H600_V480.v_sync_width,
                     "Check vertical sync width time");
 
         v_timestamp := now;
@@ -172,13 +186,32 @@ begin
         check_equal(vsync, '1', "Check value of `o_vsync` at the start of first line");
         check_equal(display_active, '1', "Check value of `o_display_active` at the start of first line");
 
-        check_equal(now - v_timestamp, CLK_PERIOD * VGA_H_TOTAL * VGA_CONFIG_H600_V480.v_back_porch,
+        check_equal(now - v_timestamp, VGA_CLK_PERIOD * VGA_H_TOTAL * VGA_CONFIG_H600_V480.v_back_porch,
                     "Check vertical back porch time");
 
-        check_equal(now, CLK_PERIOD * VGA_H_TOTAL * VGA_V_TOTAL,
+        -- The extra clock period is because the clock enable generator is one period delayed
+        check_equal(now, VGA_CLK_PERIOD * VGA_H_TOTAL * VGA_V_TOTAL + CLK_PERIOD,
                     "Check time until the end of last line");
 
         wait for 17 ms - now;
+
+        check_relation(row /= 0, "Check that `o_row` is not equal to zero before reset");
+        check_relation(column /= 0, "Check that `o_column` is not equal to zero before reset");
+
+        reset <= '1';
+
+        wait until rising_edge(clk);
+        wait for 1 ns;
+
+        reset <= '0';
+
+        check_equal(row, 0, "Check value of `o_row` after reset");
+        check_equal(column, 0, "Check value of `o_column` after reset");
+        check_equal(hsync, '1', "Check value of `o_hsync` after reset");
+        check_equal(vsync, '1', "Check value of `o_vsync` after reset");
+        check_equal(display_active, '1', "Check value of `o_display_active` after reset");
+
+        wait for 100 us;
 
         test_runner_cleanup(runner); -- Simulation ends here
 

@@ -17,14 +17,8 @@ This is a task list for this repository. This list is not exhaustive.
   - [ ] Study check library
   - [ ] Study run library
 
-- [ ] Create (un)signed to BCD converter
-  - [ ] Create a synthesizeable function (for small widths)
-  - [x] Create a double-dabble entity (for larger widths)
-    - [x] Improve .psl file
 
 ## To do
-
-- [ ] Create parametrized VGA controller
 
 - [ ] Investigate TerosHDL not creating state diagram for double_dabble entity
 
@@ -83,3 +77,8 @@ This is a task list for this repository. This list is not exhaustive.
   - [x] Create PSL assertions
   - [x] Test on FPGA
 - [x] Check docs are up to date (esp. w.r.t. outdated SIMULATION generic)
+- [x] Create (un)signed to BCD converter
+  - [x] Create a synthesizeable function (for small widths)
+  - [x] Create a double-dabble entity (for larger widths)
+    - [x] Improve .psl file
+- [x] Create parametrized VGA controller
