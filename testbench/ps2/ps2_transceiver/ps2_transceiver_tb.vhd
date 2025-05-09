@@ -43,7 +43,6 @@ architecture tb of ps2_transceiver_tb is
         clock <= '0';
         wait for 0.5 * PS2_CLK_PERIOD;
         clock <= '1';
-        wait for 0.5 * PS2_CLK_PERIOD;
 
         for i in 0 to 7 loop
 
@@ -53,7 +52,6 @@ architecture tb of ps2_transceiver_tb is
             clock  <= '0';
             wait for 0.5 * PS2_CLK_PERIOD;
             clock  <= '1';
-            wait for 0.5 * PS2_CLK_PERIOD;
 
         end loop;
 
@@ -62,13 +60,11 @@ architecture tb of ps2_transceiver_tb is
         clock <= '0';
         wait for 0.5 * PS2_CLK_PERIOD;
         clock <= '1';
-        wait for 0.5 * PS2_CLK_PERIOD;
         data  <= '1';        -- Stop bit
         wait for 0.5 * PS2_CLK_PERIOD;
         clock <= '0';
         wait for 0.5 * PS2_CLK_PERIOD;
         clock <= '1';
-        wait for 0.5 * PS2_CLK_PERIOD;
 
     end procedure send_ps2_data;
 
@@ -100,11 +96,22 @@ begin
 
         show(get_logger(default_checker), display_handler, pass);
 
-        wait for PS2_CLK_PERIOD;
-
+        /*wait for PS2_CLK_PERIOD;
         send_ps2_data(ps2_clk, ps2_data, "100101101");
+        wait for PS2_CLK_PERIOD;*/
 
-        wait for PS2_CLK_PERIOD;
+        while test_suite loop
+
+            if run("receive") then
+                wait for PS2_CLK_PERIOD;
+                send_ps2_data(ps2_clk, ps2_data, "100101101");
+
+                check(rx_data = "10010110", "Check the received data");
+                check(rx_error = '0', "Check there is no RX error");
+                check(rx_busy = '0', "Check RX is not busy");
+            end if;
+
+        end loop;
 
         test_runner_cleanup(runner); -- Simulation ends here
 

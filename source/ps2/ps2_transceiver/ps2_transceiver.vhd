@@ -82,7 +82,7 @@ begin
     -- Target debouncing period is 5 microseconds
     inst_ps2_clock_debouncer : entity work.debouncer
         generic map (
-            PERIOD => 5
+            PERIOD => 4
         )
         port map (
             i_input   => io_ps2_clk,
@@ -94,7 +94,7 @@ begin
     -- Target debouncing period is 5 microseconds
     inst_ps2_data_debouncer : entity work.debouncer
         generic map (
-            PERIOD => 5
+            PERIOD => 4
         )
         port map (
             i_input   => io_ps2_data,
