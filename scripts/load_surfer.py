@@ -51,9 +51,16 @@ def find_state_file(test_name: str) -> str:
     # Assume that the testbench name is the second dot-separated member of the test name
     testbench_name = test_name.split(".")[1].rstrip("_tb")
 
-    # Attempt to find a *surfer.ron state file in the testbench directory
-    testbench_directory = Path(TESTBENCH_DIRECTORY) / testbench_name
+    # Attempt to find a directory with the same name as the testbench recursively within TESTBENCH_DIRECTORY
+    for entity in Path(TESTBENCH_DIRECTORY).rglob("*"):
+        if entity.is_dir() and entity.name == testbench_name:
+            testbench_directory = entity
+            break
+    else:
+        print("No testbench directory found. Skipping search for state file...")
+        return ""
 
+    # Attempt to find a *surfer.ron state file in the testbench directory
     state_files = list(testbench_directory.glob("*surf.ron"))
 
     if len(state_files) == 0:

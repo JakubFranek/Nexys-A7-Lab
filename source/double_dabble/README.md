@@ -68,7 +68,7 @@ For implementation on Xilinx XC7, `double_dabble` entity is more resource effici
 
 | Name            | Type                                       | Description                |
 | --------------- | ------------------------------------------ | -------------------------- |
-| current_state   | fsm_state                                  | FSM current state signal   |
+| current_state   | t_fsm_state                                | FSM current state signal   |
 | binary_shiftreg | unsigned(i_binary'length - 3 - 1 downto 0) | Binary shift register      |
 | bcd_shiftreg    | unsigned(BCD_DIGITS * 4 - 1 downto 0)      | BCD shift register         |
 | bit_count       | unsigned(COUNTER_SIZE - 1 downto 0)        | Conversion cycle counter   |
@@ -86,7 +86,7 @@ For implementation on Xilinx XC7, `double_dabble` entity is more resource effici
 ## Enums
 
 
-### *fsm_state*
+### *t_fsm_state*
 | Name            | Description                                |
 | --------------- | ------------------------------------------ |
 | S_IDLE          | Idle, waiting for `i_convert` active pulse |

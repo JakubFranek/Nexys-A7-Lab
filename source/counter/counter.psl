@@ -6,6 +6,9 @@ vunit counter_psl (counter(rtl)) {
     count_reset:
     assert always i_reset -> next (o_count = 0);
 
+    count_never_overflows:
+    assert never (o_count > COUNTER_MAX);
+
     count_up:
     assert always (not i_reset and i_enable and i_direction and o_count /= COUNTER_MAX) -> next (o_count = prev(o_count) + 1);
 

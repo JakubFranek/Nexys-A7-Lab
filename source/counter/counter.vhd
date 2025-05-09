@@ -41,13 +41,23 @@ begin
             elsif (i_enable = '1') then
                 -- count up
                 if (i_direction = '1') then
-                    o_count    <= o_count + 1;
-                    o_overflow <= '1' when (o_count = COUNTER_MAX) else '0';
+                    if (o_count = COUNTER_MAX) then
+                        o_overflow <= '1';
+                        o_count    <= (others => '0');
+                    else
+                        o_count    <= o_count + 1;
+                        o_overflow <= '0';
+                    end if;
 
                 -- count down
                 else
-                    o_count    <= o_count - 1;
-                    o_overflow <= '1' when (o_count = 0) else '0';
+                    if (o_count = 0) then
+                        o_overflow <= '1';
+                        o_count    <= to_unsigned(COUNTER_MAX, WIDTH);
+                    else
+                        o_count    <= o_count - 1;
+                        o_overflow <= '0';
+                    end if;
                 end if;
             end if;
         end if;

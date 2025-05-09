@@ -34,6 +34,7 @@ Simple unsigned parametrized counter.
 | Label | Condition |
 |-------|-----------|
 | count_reset | always i_reset -> next (o_count = 0) |
+| count_never_overflows | never (o_count > COUNTER_MAX) |
 | count_up | always (not i_reset and i_enable and i_direction and o_count /= COUNTER_MAX) -> next (o_count = prev(o_count) + 1) |
 | count_up_overflow | always (not i_reset and i_enable and i_direction and o_count = COUNTER_MAX) -> next (o_count = 0) |
 | count_down | always (not i_reset and i_enable and not i_direction and o_count /= 0) -> next (o_count = prev(o_count) - 1) |

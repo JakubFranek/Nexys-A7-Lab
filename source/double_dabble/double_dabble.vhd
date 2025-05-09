@@ -71,14 +71,14 @@ architecture rtl of double_dabble is
     --! Initial value of counter
     constant INITIAL_COUNT : unsigned(COUNTER_SIZE - 1 downto 0) := to_unsigned(MAX_COUNT, COUNTER_SIZE);
 
-    type fsm_state is (
+    type t_fsm_state is (
         S_IDLE,          --! Idle, waiting for `i_convert` active pulse
         S_LOAD_SHIFTREG, --! Load shift registers with input data
         S_CONVERTING,    --! Conversion under way
         S_DONE           --! Conversion done, output data are valid
     );
 
-    signal current_state : fsm_state := S_IDLE; --! FSM current state signal
+    signal current_state : t_fsm_state := S_IDLE; --! FSM current state signal
 
     --! Binary shift register
     signal binary_shiftreg : unsigned(i_binary'length - 3 - 1 downto 0) := (others => '0');
@@ -139,7 +139,7 @@ begin
 
     proc_fsm : process (i_clk) is
 
-        variable v_next_state : fsm_state; --! Next value of `current_state`
+        variable v_next_state : t_fsm_state; --! Next value of `current_state`
 
     begin
 
