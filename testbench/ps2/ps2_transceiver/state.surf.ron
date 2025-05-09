@@ -221,47 +221,21 @@
             ],
         ),
         displayed_items: {
-            (38): Variable((
+            (28): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "ps2_transceiver_tb",
-                            "inst_uut",
                         ],
                     ),
-                    name: "q_shiftreg",
+                    name: "tx_data",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "q_shiftreg [10:0]",
+                display_name: "tx_data [7:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: Some("Binary (with groups)"),
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (19): Group((
-                name: "PS2 Trainsceiver Internals",
-                color: None,
-                background_color: None,
-                content: [],
-                is_open: false,
-            )),
-            (2): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                        ],
-                    ),
-                    name: "ps2_clk",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "ps2_clk",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
                 field_formats: [],
                 height_scaling_factor: None,
             )),
@@ -284,31 +258,6 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (27): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                        ],
-                    ),
-                    name: "tx_start",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "tx_start",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (36): Group((
-                name: "PS2 Transceiver outputs",
-                color: None,
-                background_color: None,
-                content: [],
-                is_open: false,
-            )),
             (3): Variable((
                 variable_ref: (
                     path: (
@@ -327,154 +276,18 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (14): Variable((
+            (1): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "ps2_transceiver_tb",
                         ],
                     ),
-                    name: "rx_busy",
+                    name: "clk",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "rx_busy",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (21): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "clk_ena_1us",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "clk_ena_1us",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (41): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "watchdog_overflow",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "watchdog_overflow",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (32): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "state",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "state",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (26): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "inhibit_counter_reset",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "inhibit_counter_reset",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (15): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                        ],
-                    ),
-                    name: "rx_error",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "rx_error",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (37): Divider((
-                color: None,
-                background_color: None,
-                name: None,
-            )),
-            (31): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                        ],
-                    ),
-                    name: "tx_busy",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "tx_busy",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (4): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "ps2_clk_clean",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "ps2_clk_clean",
+                display_name: "clk",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -500,18 +313,26 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (40): Variable((
+            (19): Group((
+                name: "PS2 Trainsceiver Internals",
+                color: None,
+                background_color: None,
+                content: [],
+                is_open: false,
+            )),
+            (38): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "ps2_transceiver_tb",
+                            "inst_uut",
                         ],
                     ),
-                    name: "tb_shiftreg",
+                    name: "q_shiftreg",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "tb_shiftreg [9:0]",
+                display_name: "q_shiftreg [10:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: Some("Binary (with groups)"),
@@ -537,110 +358,36 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (30): Variable((
+            (40): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "ps2_transceiver_tb",
                         ],
                     ),
-                    name: "tx_done",
+                    name: "tb_shiftreg",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "tx_done",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (28): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                        ],
-                    ),
-                    name: "tx_data",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "tx_data [7:0]",
+                display_name: "tb_shiftreg [9:0]",
                 display_name_type: Unique,
                 manual_name: None,
                 format: Some("Binary (with groups)"),
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (39): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "q_shiftreg_counter",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "q_shiftreg_counter [3:0]",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (1): Variable((
+            (14): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "ps2_transceiver_tb",
                         ],
                     ),
-                    name: "clk",
+                    name: "rx_busy",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "clk",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (5): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                            "inst_uut",
-                        ],
-                    ),
-                    name: "ps2_clk_falling",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "ps2_clk_falling",
-                display_name_type: Unique,
-                manual_name: None,
-                format: None,
-                field_formats: [],
-                height_scaling_factor: None,
-            )),
-            (29): Variable((
-                variable_ref: (
-                    path: (
-                        strs: [
-                            "ps2_transceiver_tb",
-                        ],
-                    ),
-                    name: "tx_error",
-                ),
-                color: None,
-                background_color: None,
-                display_name: "tx_error",
+                display_name: "rx_busy",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -666,18 +413,179 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
-            (16): Variable((
+            (15): Variable((
                 variable_ref: (
                     path: (
                         strs: [
                             "ps2_transceiver_tb",
                         ],
                     ),
-                    name: "rx_done",
+                    name: "rx_error",
                 ),
                 color: None,
                 background_color: None,
-                display_name: "rx_done",
+                display_name: "rx_error",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (39): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "q_shiftreg_counter",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "q_shiftreg_counter [3:0]",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (30): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                        ],
+                    ),
+                    name: "tx_done",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_done",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (27): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                        ],
+                    ),
+                    name: "tx_start",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_start",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (2): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                        ],
+                    ),
+                    name: "ps2_clk",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "ps2_clk",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (37): Divider((
+                color: None,
+                background_color: None,
+                name: None,
+            )),
+            (21): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "clk_ena_1us",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "clk_ena_1us",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (5): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "ps2_clk_falling",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "ps2_clk_falling",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (32): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "state",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "state",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (36): Group((
+                name: "PS2 Transceiver outputs",
+                color: None,
+                background_color: None,
+                content: [],
+                is_open: false,
+            )),
+            (26): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "inhibit_counter_reset",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "inhibit_counter_reset",
                 display_name_type: Unique,
                 manual_name: None,
                 format: None,
@@ -702,6 +610,98 @@
                 field_formats: [],
                 height_scaling_factor: None,
             )),
+            (29): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                        ],
+                    ),
+                    name: "tx_error",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_error",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (4): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "ps2_clk_clean",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "ps2_clk_clean",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (31): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                        ],
+                    ),
+                    name: "tx_busy",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "tx_busy",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (41): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                            "inst_uut",
+                        ],
+                    ),
+                    name: "watchdog_overflow",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "watchdog_overflow",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
+            (16): Variable((
+                variable_ref: (
+                    path: (
+                        strs: [
+                            "ps2_transceiver_tb",
+                        ],
+                    ),
+                    name: "rx_done",
+                ),
+                color: None,
+                background_color: None,
+                display_name: "rx_done",
+                display_name_type: Unique,
+                manual_name: None,
+                format: None,
+                field_formats: [],
+                height_scaling_factor: None,
+            )),
         },
         display_item_ref_counter: 43,
         viewports: [
@@ -717,8 +717,8 @@
             ),
         ],
         cursor: Some((1, [
-            2720499881,
-            56,
+            1666282331,
+            66,
         ])),
         markers: {},
         focused_item: None,

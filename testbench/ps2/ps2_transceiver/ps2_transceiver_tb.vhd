@@ -142,11 +142,16 @@ begin
 
             if run("receive") then
                 wait for PS2_CLK_PERIOD;
-                send_ps2_data(ps2_clk, ps2_data, "110010110");
 
-                check_equal(rx_data, std_logic_vector'("10010110"), "Check the received data");
-                check_equal(rx_error, '0', "Check there is no RX error");
-                check_equal(rx_busy, '0', "Check RX is not busy");
+                send_ps2_data(ps2_clk, ps2_data, "110010110");
+                check_equal(rx_data, std_logic_vector'("10010110"), "Check the received data (1st packet)");
+                check_equal(rx_error, '0', "Check there is no RX error after 1st packet");
+                check_equal(rx_busy, '0', "Check RX is not busy after 1st packet");
+
+                send_ps2_data(ps2_clk, ps2_data, "000011010");
+                check_equal(rx_data, std_logic_vector'("00011010"), "Check the received data (2nd packet)");
+                check_equal(rx_error, '0', "Check there is no RX error after 2nd packet");
+                check_equal(rx_busy, '0', "Check RX is not busy after 2nd packet");
 
                 wait for PS2_CLK_PERIOD;
             elsif run("transmit") then

@@ -284,7 +284,8 @@ begin
                 o_tx_error         <= '0';
             elsif (state = S_RX) then
                 -- Default assignments
-                o_rx_done <= '0';
+                o_rx_done  <= '0';
+                o_rx_error <= '1' when (watchdog_overflow = '1') else '0';
 
                 if (ps2_clk_falling = '1') then
                     q_shiftreg <= ps2_data_clean & q_shiftreg(10 downto 1);
@@ -320,6 +321,8 @@ begin
                 -- Stop bit
                 q_shiftreg(10) <= '1';
             elsif (state = S_TX) then
+                o_tx_error <= '1' when (watchdog_overflow = '1') else '0';
+
                 if (ps2_clk_falling = '1') then
                     -- Loading the shiftreg with '1's ensures that the line will be naturally high-Z after transmit
                     q_shiftreg <= '1' & q_shiftreg(10 downto 1);
